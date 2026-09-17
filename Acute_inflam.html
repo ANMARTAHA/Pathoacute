@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Smart — Acute Inflammation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#152238;
+    --paper:#EEEAE0;
+    --paper-2:#E4DFD1;
+    --card:#FBF9F4;
+    --red:#B23A2E;
+    --red-dim: #E7D3CD;
+    --amber:#C6862A;
+    --teal:#1F5C52;
+    --teal-dim:#D8E5E1;
+    --line: rgba(21,34,56,0.14);
+    --shadow: 0 1px 0 rgba(21,34,56,0.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  ::selection{background:var(--red); color:#fff;}
+
+  /* ---------- header ---------- */
+  header.top{
+    padding:28px 20px 18px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(140px 100px at 92% -10%, rgba(178,58,46,0.10), transparent 70%),
+      var(--paper);
+  }
+  .brandrow{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    max-width:1180px; margin:0 auto;
+  }
+  .brand h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(30px, 5.4vw, 48px);
+    letter-spacing:-0.01em;
+    margin:0; line-height:0.98;
+    color:var(--ink);
+  }
+  .brand h1 em{
+    font-style:italic; color:var(--red);
+  }
+  .brand p.tag{
+    margin:8px 0 0; font-size:14.5px; color:#4a5568; max-width:46ch;
+  }
+  .vessel{ width:118px; height:64px; flex-shrink:0; }
+
+  /* ---------- nav ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:40;
+    background:var(--paper); border-bottom:1px solid var(--line);
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  nav.tabs .row{
+    display:flex; gap:2px; max-width:1180px; margin:0 auto; padding:0 20px;
+    min-width:max-content;
+  }
+  nav.tabs button{
+    appearance:none; border:none; background:none; cursor:pointer;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px;
+    color:#5a6376; padding:14px 16px 12px; border-bottom:3px solid transparent;
+    white-space:nowrap; transition:color .15s ease, border-color .15s ease;
+    letter-spacing:0.01em;
+  }
+  nav.tabs button .n{
+    font-family:'JetBrains Mono',monospace; font-size:11px; margin-right:7px; color:#9aa2b1;
+  }
+  nav.tabs button:hover{ color:var(--ink); }
+  nav.tabs button.active{ color:var(--red); border-bottom-color:var(--red); }
+  nav.tabs button.active .n{ color:var(--red); }
+
+  main{ max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+  section{ display:none; animation:fade .35s ease; }
+  section.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  h2.sectitle{
+    font-family:'Fraunces', serif; font-weight:600; font-size:clamp(24px,3.4vw,32px);
+    margin:0 0 6px; color:var(--ink);
+  }
+  p.secsub{ margin:0 0 26px; color:#5a6376; font-size:14.5px; max-width:62ch; }
+
+  /* ---------- Overview ---------- */
+  .ov-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+  .ov-card{
+    background:var(--card); border:1px solid var(--line); border-radius:3px;
+    padding:18px 18px 16px; box-shadow:var(--shadow);
+  }
+  .ov-card h3{
+    margin:0 0 10px; font-size:14px; text-transform:none; letter-spacing:0.01em;
+    color:var(--red); font-weight:700; display:flex; align-items:center; gap:8px;
+  }
+  .ov-card h3::before{
+    content:""; width:7px; height:7px; border-radius:50%; background:var(--red); flex-shrink:0;
+  }
+  .ov-card ul{ margin:0; padding-left:18px; font-size:13.6px; line-height:1.65; color:#2b3548; }
+  .ov-card li{ margin-bottom:5px; }
+  .ov-card p{ font-size:13.6px; line-height:1.65; color:#2b3548; margin:0; }
+  .ov-card b{ color:var(--ink); }
+  .ov-wide{ grid-column: 1 / -1; }
+  .lawline{
+    display:flex; gap:10px; padding:8px 0; border-top:1px dashed var(--line); font-size:13.4px;
+  }
+  .lawline:first-of-type{ border-top:none; }
+  .lawline .k{ color:var(--teal); font-weight:700; min-width:150px; flex-shrink:0; }
+  .lawline .v{ color:#2b3548; }
+
+  /* ---------- Diagrams ---------- */
+  .dg-block{ margin-bottom:34px; }
+  .dg-head{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; margin:0 0 4px; }
+  .dg-desc{ font-size:13px; color:#5a6376; margin:0 0 16px; }
+  .chipflow{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+  .chip{
+    appearance:none; cursor:pointer; border:1.5px solid var(--line); background:var(--card);
+    padding:10px 14px; border-radius:3px; font-family:'Inter'; font-weight:600; font-size:13px;
+    color:var(--ink); transition:.15s ease all;
+  }
+  .chip:hover{ border-color:var(--red); }
+  .chip.on{ background:var(--red); color:#fff; border-color:var(--red); }
+  .arrow{ color:#9aa2b1; font-size:16px; padding:0 2px; }
+  .detailbox{
+    margin-top:14px; background:var(--card); border-left:3px solid var(--red);
+    padding:14px 16px; font-size:13.6px; line-height:1.6; color:#2b3548; border-radius:0 3px 3px 0;
+    display:none;
+  }
+  .detailbox.show{ display:block; }
+
+  .cardinal-wrap{ display:grid; grid-template-columns: 1fr; gap:16px; }
+  @media(min-width:760px){ .cardinal-wrap{ grid-template-columns: 200px 1fr; align-items:start; } }
+  .signgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; }
+  .signbtn{
+    cursor:pointer; border:1.5px solid var(--line); background:var(--card); border-radius:3px;
+    padding:14px 10px; text-align:center; font-weight:700; font-size:13px; color:var(--ink);
+  }
+  .signbtn:hover, .signbtn.on{ border-color:var(--teal); background:var(--teal-dim); }
+
+  table.cmp{ width:100%; border-collapse:collapse; font-size:13.4px; }
+  table.cmp th{
+    text-align:left; padding:10px 12px; background:var(--ink); color:#fff; font-weight:600;
+    font-size:12px; letter-spacing:0.02em;
+  }
+  table.cmp td{ padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.cmp tr:nth-child(even) td{ background:rgba(0,0,0,0.02); }
+  table.cmp tr.clickable{ cursor:pointer; }
+  table.cmp tr.clickable:hover td{ background:var(--teal-dim); }
+
+  .flow{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .flownode{
+    cursor:pointer; border:1.5px solid var(--line); background:var(--card); padding:12px 16px;
+    border-radius:20px; font-weight:600; font-size:13px;
+  }
+  .flownode:hover, .flownode.on{ background:var(--red); border-color:var(--red); color:#fff; }
+
+  /* ---------- Mini map ---------- */
+  .mm-wrap{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:800px){ .mm-wrap{ grid-template-columns: 280px 1fr; } }
+  .mm-list{ display:flex; flex-direction:column; gap:4px; }
+  .mm-list button{
+    appearance:none; text-align:left; cursor:pointer; border:1px solid transparent;
+    background:transparent; padding:10px 12px; border-radius:3px; font-size:13.6px;
+    color:#3c4658; font-weight:600; border-left:3px solid transparent;
+  }
+  .mm-list button:hover{ background:var(--card); }
+  .mm-list button.on{ background:var(--card); border-left-color:var(--red); color:var(--red); }
+  .mm-panel{
+    background:var(--card); border:1px solid var(--line); border-radius:3px; padding:24px;
+    min-height:280px;
+  }
+  .mm-panel h3{ margin:0 0 12px; font-family:'Fraunces',serif; font-size:21px; font-weight:600; }
+  .mm-panel .body{ font-size:14px; line-height:1.75; color:#2b3548; }
+  .mm-panel .body ul{ margin:6px 0; padding-left:18px; }
+  .mm-panel .placeholder{ color:#9aa2b1; font-size:13.6px; font-style:italic; }
+
+  /* ---------- Flash cards ---------- */
+  .fc-bar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
+  .fc-count{ font-size:12.5px; color:#5a6376; font-family:'JetBrains Mono',monospace; }
+  .fc-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
+  .fc{
+    perspective:1200px; height:190px; cursor:pointer;
+  }
+  .fc-inner{ position:relative; width:100%; height:100%; transition:transform .5s cubic-bezier(.2,.8,.2,1); transform-style:preserve-3d; }
+  .fc.flip .fc-inner{ transform:rotateY(180deg); }
+  .fc-face{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:4px; padding:16px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    font-size:13.8px; line-height:1.4; border:1px solid var(--line);
+    overflow-y:auto; overflow-wrap:break-word; word-break:break-word;
+  }
+  .fc-face::-webkit-scrollbar{ width:5px; }
+  .fc-face::-webkit-scrollbar-thumb{ background:rgba(0,0,0,0.2); border-radius:3px; }
+  .fc-front{ background:var(--card); color:var(--ink); font-weight:700; }
+  .fc-back{ background:var(--ink); color:#EEEAE0; transform:rotateY(180deg); font-weight:500; font-size:12.5px; }
+  .fc-tag{ position:absolute; top:8px; left:10px; font-size:9.5px; letter-spacing:0.06em; color:#9aa2b1; font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- Quiz ---------- */
+  .quiz-bar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; gap:12px; }
+  .quiz-score{ font-family:'JetBrains Mono',monospace; font-size:13px; background:var(--card); border:1px solid var(--line); padding:8px 14px; border-radius:3px; }
+  .quiz-score b{ color:var(--red); }
+  .btn{
+    appearance:none; cursor:pointer; border:1.5px solid var(--ink); background:var(--ink); color:#fff;
+    padding:9px 16px; border-radius:3px; font-weight:600; font-size:13px; font-family:'Inter';
+  }
+  .btn:hover{ background:#0d1626; }
+  .btn.ghost{ background:transparent; color:var(--ink); }
+  .qcard{
+    background:var(--card); border:1px solid var(--line); border-radius:3px; padding:18px 18px 16px;
+    margin-bottom:12px;
+  }
+  .qcard .qhead{ display:flex; gap:10px; margin-bottom:12px; }
+  .qcard .qnum{ font-family:'JetBrains Mono',monospace; color:var(--red); font-weight:700; font-size:13px; flex-shrink:0; }
+  .qcard .qtext{ font-size:14.5px; font-weight:600; color:var(--ink); line-height:1.5; }
+  .opts{ display:flex; flex-direction:column; gap:7px; }
+  .opt{
+    text-align:left; cursor:pointer; border:1.5px solid var(--line); background:#fff;
+    padding:10px 12px; border-radius:3px; font-size:13.4px; color:#2b3548; font-family:'Inter';
+  }
+  .opt:hover{ border-color:var(--teal); }
+  .opt.correct{ border-color:var(--teal); background:var(--teal-dim); font-weight:600; }
+  .opt.wrong{ border-color:var(--red); background:var(--red-dim); font-weight:600; }
+  .opt[disabled]{ cursor:default; }
+
+  footer{
+    border-top:1px solid var(--line); padding:22px 20px; text-align:center;
+    font-size:12px; color:#8a92a2;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brandrow">
+    <div class="brand">
+      <h1>Study <em>Smart</em></h1>
+      <p class="tag">Acute Inflammation — the definitions, signs, sequences and mechanisms condensed for review.</p>
+    </div>
+    <svg class="vessel" viewBox="0 0 160 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="30" width="152" height="28" rx="14" fill="#F3D9D3" stroke="#B23A2E" stroke-width="2"/>
+      <circle cx="30" cy="44" r="7" fill="#B23A2E"/>
+      <circle cx="55" cy="40" r="5" fill="#1F5C52"/>
+      <circle cx="75" cy="48" r="5.5" fill="#C6862A"/>
+      <circle cx="98" cy="42" r="6" fill="#B23A2E"/>
+      <circle cx="122" cy="47" r="4.5" fill="#1F5C52"/>
+      <circle cx="140" cy="41" r="5" fill="#C6862A"/>
+    </svg>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="row" id="tabrow">
+    <button class="active" data-sec="overview"><span class="n">01</span>Overview</button>
+    <button data-sec="diagrams"><span class="n">02</span>Diagrams</button>
+    <button data-sec="minimap"><span class="n">03</span>Mini Map</button>
+    <button data-sec="flash"><span class="n">04</span>Flash Cards</button>
+    <button data-sec="quiz"><span class="n">05</span>Quiz Bank</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ 1. OVERVIEW ============ -->
+  <section id="sec-overview" class="active">
+    <h2 class="sectitle">Overview</h2>
+    <p class="secsub">The essentials only — definitions and the key facts worth memorizing, not the full lecture.</p>
+
+    <div class="ov-grid">
+      <div class="ov-card">
+        <h3>Definition</h3>
+        <p>The local response of living mammalian tissue to injury from any agent. A defense reaction that <b>eliminates</b> the injurious agent and <b>removes</b> necrosed tissue — but it can itself <b>damage</b> tissue.</p>
+      </div>
+
+      <div class="ov-card">
+        <h3>Cardinal signs</h3>
+        <ul>
+          <li>Redness — hyperaemia</li>
+          <li>Heat — hyperaemia</li>
+          <li>Swelling — exudation</li>
+          <li>Pain — nerve stimulation, chemical mediators</li>
+          <li>Loss of function</li>
+        </ul>
+      </div>
+
+      <div class="ov-card">
+        <h3>Three types</h3>
+        <ul>
+          <li><b>Acute:</b> rapid onset, severe, lasts days–weeks</li>
+          <li><b>Subacute:</b> intermediate between acute and chronic</li>
+          <li><b>Chronic:</b> failed acute resolution, autoimmune, or a persistent low-grade irritant; inflammation + repair occur together</li>
+        </ul>
+      </div>
+
+      <div class="ov-card">
+        <h3>Causes</h3>
+        <p><b>Exogenous:</b> physical (mechanical, thermal), chemical (gases, acids, bases), biological (bacteria, viruses, parasites).</p>
+        <p style="margin-top:8px;"><b>Endogenous:</b> circulation disorders (thrombosis, infarction, hemorrhage), enzyme activation (acute pancreatitis), metabolic product deposits (uric acid, urea).</p>
+      </div>
+
+      <div class="ov-card ov-wide">
+        <h3>Pathogenesis — three processes</h3>
+        <div class="lawline"><div class="k">1 · Increased blood flow</div><div class="v">→ redness and warmth</div></div>
+        <div class="lawline"><div class="k">2 · Increased permeability</div><div class="v">→ swelling / edema</div></div>
+        <div class="lawline"><div class="k">3 · Leukocytic infiltration</div><div class="v">→ cellular defense at the site</div></div>
+      </div>
+
+      <div class="ov-card ov-wide">
+        <h3>Hemodynamic sequence</h3>
+        <div class="lawline"><div class="k">Transient vasoconstriction</div><div class="v">Seconds; lasts up to ~5 min in severe injury</div></div>
+        <div class="lawline"><div class="k">Vasodilatation + stasis</div><div class="v">Obvious within 30 min; "active hyperemia" → redness/warmth</div></div>
+        <div class="lawline"><div class="k">Increased vessel permeability</div><div class="v">Protein-rich fluid leaves vessels → exudate</div></div>
+        <div class="lawline"><div class="k">Fluid exudate / edema</div><div class="v">Raised hydrostatic pressure → swelling</div></div>
+      </div>
+
+      <div class="ov-card">
+        <h3>Transudate vs. exudate</h3>
+        <p><b>Transudate:</b> low protein, hydrostatic/oncotic pressure problem.</p>
+        <p style="margin-top:6px;"><b>Exudate:</b> high protein (incl. immunoglobulins), caused by increased vascular permeability.</p>
+      </div>
+
+      <div class="ov-card">
+        <h3>Leukocyte journey (order matters)</h3>
+        <ul>
+          <li>Margination &amp; pavementing</li>
+          <li>Rolling &amp; adhesion</li>
+          <li>Emigration &amp; diapedesis</li>
+          <li>Chemotaxis</li>
+        </ul>
+      </div>
+
+      <div class="ov-card">
+        <h3>Phagocytosis — 3 steps</h3>
+        <ul>
+          <li>Recognition &amp; attachment (mannose/scavenger receptors; opsonins: IgG, C3b, lectins)</li>
+          <li>Engulfment (pseudopods, actin, phagocytic vacuole)</li>
+          <li>Killing &amp; degradation (O₂-dependent or -independent)</li>
+        </ul>
+      </div>
+
+      <div class="ov-card">
+        <h3>Killing mechanisms</h3>
+        <p><b>O₂-dependent:</b> myeloperoxidase-H₂O₂-halide → HOCl (bleach); or superoxide/hydroxyl radicals via glutathione peroxidase.</p>
+        <p style="margin-top:6px;"><b>O₂-independent:</b> lysosome, lactoferrin.</p>
+      </div>
+
+      <div class="ov-card ov-wide">
+        <h3>Chemical mediators — quick reference</h3>
+        <div class="lawline"><div class="k">Histamine</div><div class="v">Mast cells / basophils → vascular leakage</div></div>
+        <div class="lawline"><div class="k">Prostaglandins</div><div class="v">All leukocytes → vasodilation, pain, fever</div></div>
+        <div class="lawline"><div class="k">Lysosomal enzymes</div><div class="v">Neutrophils / macrophages → bacterial &amp; tissue destruction</div></div>
+        <div class="lawline"><div class="k">Cytokines</div><div class="v">Macrophages / lymphocytes → leukocyte activation</div></div>
+        <div class="lawline"><div class="k">Leukotrienes (LTB4)</div><div class="v">All leukocytes → chemoattractant</div></div>
+        <div class="lawline"><div class="k">Nitric oxide</div><div class="v">Macrophages → leukocyte activation</div></div>
+        <div class="lawline"><div class="k">Complement C3a/C5a</div><div class="v">Vascular permeability, chemotaxis (C5a), opsonization (C3b)</div></div>
+        <div class="lawline"><div class="k">Factor XII (Hageman)</div><div class="v">Activates kinin, clotting, fibrinolytic &amp; complement systems</div></div>
+      </div>
+
+      <div class="ov-card">
+        <h3>Systemic manifestations</h3>
+        <ul>
+          <li>Pyrexia (fever) — prostaglandin effect</li>
+          <li>Negative nitrogen balance</li>
+          <li>↑ ESR, acute-phase proteins (CRP, SAA, SAP)</li>
+          <li>Leukocytosis (bacterial) / Leucopenia (typhoid, viral, rickettsial, protozoal)</li>
+          <li>Acute-phase reactions: malaise, hypotension, ↑pulse, rigors, chills</li>
+        </ul>
+      </div>
+
+      <div class="ov-card">
+        <h3>Morphological types</h3>
+        <ul>
+          <li>Catarrhal — mild, mucous membranes, excess mucus</li>
+          <li>Serous — clear watery effusion in serous cavities</li>
+          <li>Suppurative — pus, pyogenic bacteria, abscess/empyema</li>
+          <li>Fibrinous — fibrin deposits, "bread and butter" appearance</li>
+          <li>Pseudomembranous — necrosis + pseudomembrane (diphtheria)</li>
+          <li>Gangrenous — necrosis + putrefaction, foul odor</li>
+          <li>Ulcerative — loss of surface epithelium continuity</li>
+        </ul>
+      </div>
+
+      <div class="ov-card">
+        <h3>Outcomes</h3>
+        <ul>
+          <li>Resolution</li>
+          <li>Healing by repair or regeneration</li>
+          <li>Progression to chronic inflammation</li>
+          <li>Spread — direct (cellulitis), lymphatic, blood (septicemia)</li>
+          <li>Death</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. DIAGRAMS ============ -->
+  <section id="sec-diagrams">
+    <h2 class="sectitle">Diagrams</h2>
+    <p class="secsub">Tap any element to reveal its detail.</p>
+
+    <div class="dg-block">
+      <div class="dg-head">Cardinal signs — cause of each sign</div>
+      <div class="dg-desc">Select a sign to see the mechanism behind it.</div>
+      <div class="cardinal-wrap">
+        <div class="signgrid" id="signGrid"></div>
+        <div class="detailbox" id="signDetail"></div>
+      </div>
+    </div>
+
+    <div class="dg-block">
+      <div class="dg-head">Hemodynamic changes — the sequence</div>
+      <div class="dg-desc">Step through what happens to the vessels, in order.</div>
+      <div class="chipflow" id="hemoFlow"></div>
+      <div class="detailbox" id="hemoDetail"></div>
+    </div>
+
+    <div class="dg-block">
+      <div class="dg-head">Leukocyte recruitment — from vessel to tissue</div>
+      <div class="dg-desc">Tap each stage of the journey out of the bloodstream.</div>
+      <div class="chipflow" id="leukoFlow"></div>
+      <div class="detailbox" id="leukoDetail"></div>
+    </div>
+
+    <div class="dg-block">
+      <div class="dg-head">Phagocytosis — three steps</div>
+      <div class="chipflow" id="phagoFlow"></div>
+      <div class="detailbox" id="phagoDetail"></div>
+    </div>
+
+    <div class="dg-block">
+      <div class="dg-head">Transudate vs. Exudate</div>
+      <div class="dg-desc">Tap a row to compare.</div>
+      <table class="cmp" id="tevTable">
+        <thead><tr><th>Feature</th><th>Transudate</th><th>Exudate</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="detailbox" id="tevDetail"></div>
+    </div>
+
+    <div class="dg-block">
+      <div class="dg-head">Chemical mediators — source and function</div>
+      <div class="dg-desc">Tap a mediator to see its cell of origin and function.</div>
+      <table class="cmp" id="medTable">
+        <thead><tr><th>Mediator</th><th>Origin</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="detailbox" id="medDetail"></div>
+    </div>
+
+    <div class="dg-block">
+      <div class="dg-head">Outcomes of acute inflammation</div>
+      <div class="dg-desc">Five possible paths forward.</div>
+      <div class="flow" id="outFlow"></div>
+      <div class="detailbox" id="outDetail"></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. MINI MAP ============ -->
+  <section id="sec-minimap">
+    <h2 class="sectitle">Mini Map</h2>
+    <p class="secsub">Select a topic on the left — its full text opens in the reader on the right.</p>
+    <div class="mm-wrap">
+      <div class="mm-list" id="mmList"></div>
+      <div class="mm-panel" id="mmPanel">
+        <p class="placeholder">Choose a topic to read it here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. FLASH CARDS ============ -->
+  <section id="sec-flash">
+    <h2 class="sectitle">Flash Cards</h2>
+    <p class="secsub">Tap a card to flip it. Choose a difficulty level below.</p>
+    <div class="chipflow" id="fcLevelBar" style="margin-bottom:14px;">
+      <button class="chip on" data-lvl="easy">Level 1 · Easy (60)</button>
+      <button class="chip" data-lvl="medium">Level 2 · Medium (50)</button>
+      <button class="chip" data-lvl="hard">Level 3 · Hard (40)</button>
+    </div>
+    <div class="fc-bar">
+      <span class="fc-count" id="fcCount">0 cards</span>
+      <button class="btn ghost" id="fcResetBtn">Flip all back</button>
+    </div>
+    <div class="fc-grid" id="fcGrid"></div>
+  </section>
+
+  <!-- ============ 5. QUIZ BANK ============ -->
+  <section id="sec-quiz">
+    <h2 class="sectitle">Quiz Bank</h2>
+    <p class="secsub">Every attempt shuffles the answer choices. Choose a difficulty level below.</p>
+    <div class="chipflow" id="quizLevelBar" style="margin-bottom:14px;">
+      <button class="chip on" data-lvl="easy">Level 1 · Easy (60)</button>
+      <button class="chip" data-lvl="medium">Level 2 · Medium (50)</button>
+      <button class="chip" data-lvl="hard">Level 3 · Hard (40)</button>
+    </div>
+    <div class="quiz-bar">
+      <div class="quiz-score">Score: <b id="quizScore">0</b> / <span id="quizTotal">0</span></div>
+      <button class="btn" id="quizReshuffle">Reshuffle quiz</button>
+    </div>
+    <div id="quizList"></div>
+  </section>
+
+</main>
+
+<footer>© <span id="yr"></span> Anmar Taha. All rights reserved.</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------------- tab navigation ---------------- */
+const tabBtns = document.querySelectorAll('nav.tabs button');
+tabBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+    document.getElementById('sec-'+btn.dataset.sec).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+/* helper: simple toggle-detail component */
+function wireChips(container, detailBox, items, {shape='chip', arrows=true} = {}){
+  items.forEach((it, idx)=>{
+    const b = document.createElement('button');
+    b.className = shape==='flow' ? 'flownode' : 'chip';
+    b.textContent = it.label;
+    b.addEventListener('click', ()=>{
+      const already = b.classList.contains('on');
+      container.querySelectorAll('.chip,.flownode').forEach(c=>c.classList.remove('on'));
+      if(already){ detailBox.classList.remove('show'); return; }
+      b.classList.add('on');
+      detailBox.innerHTML = it.detail;
+      detailBox.classList.add('show');
+    });
+    container.appendChild(b);
+    if(arrows && idx < items.length-1){
+      const a = document.createElement('span');
+      a.className='arrow'; a.textContent='→';
+      container.appendChild(a);
+    }
+  });
+}
+
+/* ---------------- Diagram: cardinal signs ---------------- */
+const signs = [
+  {label:'Redness', detail:'<b>Redness (Rubor):</b> caused by hyperaemia — increased blood flow into the local microvascular bed.'},
+  {label:'Heat', detail:'<b>Heat (Calor):</b> also caused by hyperaemia — more warm blood delivered to the site.'},
+  {label:'Swelling', detail:'<b>Swelling (Tumor):</b> caused by exudation — protein-rich fluid leaking from vessels into the tissue.'},
+  {label:'Pain', detail:'<b>Pain (Dolor):</b> caused by nerve stimulation and chemical mediators (e.g. prostaglandins, bradykinin).'},
+  {label:'Loss of function', detail:'<b>Loss of function (Functio laesa):</b> results from the combined effect of pain, swelling, and tissue damage restricting normal movement/use.'},
+];
+const signGrid = document.getElementById('signGrid');
+const signDetail = document.getElementById('signDetail');
+signs.forEach(s=>{
+  const b = document.createElement('div');
+  b.className='signbtn'; b.textContent=s.label;
+  b.addEventListener('click', ()=>{
+    const already = b.classList.contains('on');
+    signGrid.querySelectorAll('.signbtn').forEach(x=>x.classList.remove('on'));
+    if(already){ signDetail.classList.remove('show'); return; }
+    b.classList.add('on');
+    signDetail.innerHTML = s.detail;
+    signDetail.classList.add('show');
+  });
+  signGrid.appendChild(b);
+});
+
+/* ---------------- Diagram: hemodynamic sequence ---------------- */
+wireChips(document.getElementById('hemoFlow'), document.getElementById('hemoDetail'), [
+  {label:'1 · Vasoconstriction', detail:'<b>Transient vasoconstriction:</b> arterioles constrict within seconds due to neurogenic or chemical stimuli (histamine, bradykinin). Blood flow may return in 3–5 seconds with mild injury, or last ~5 minutes with severe injury.'},
+  {label:'2 · Vasodilatation & stasis', detail:'<b>Persistent vasodilatation and stasis:</b> mainly involves arterioles, also venules and capillaries. Obvious within half an hour of injury. Produces "active hyperemia" — responsible for redness and warmth. Progressive vasodilatation raises local hydrostatic pressure, pushing fluid out (swelling). Slowed circulation plus protein-rich fluid loss concentrates red cells in small, dilated vessels — this finding is called <b>stasis</b>.'},
+  {label:'3 · Increased permeability', detail:'<b>Increased permeability of vessel walls:</b> protein-rich fluid and even blood cells move into extravascular tissue, raising interstitial osmotic pressure and drawing out more water. This protein-rich accumulation is called an <b>exudate</b>.'},
+  {label:'4 · Edema formation', detail:'<b>Fluid exudate and edema:</b> the net result of raised hydrostatic pressure and permeability — fluid accumulates in the extracellular space, producing visible swelling.'},
+]);
+
+/* ---------------- Diagram: leukocyte recruitment ---------------- */
+wireChips(document.getElementById('leukoFlow'), document.getElementById('leukoDetail'), [
+  {label:'Margination & pavementing', detail:'<b>Margination & pavementing:</b> as blood flow slows (stasis), white cells fall out of the central column and take a peripheral position along the endothelium (margination). As the central stream widens and the plasma zone narrows, neutrophils come to line the vessel wall (pavementing).'},
+  {label:'Rolling & adhesion', detail:'<b>Rolling & adhesion:</b> marginated neutrophils slowly roll along the endothelium (rolling phase), then form a transient bond with endothelial cells that becomes firmer (adhesion phase).'},
+  {label:'Emigration & diapedesis', detail:'<b>Emigration & diapedesis:</b> firmly adherent leukocytes insert pseudopods into the junctions between endothelial cells, cross the basement membrane (aided by collagenase), and escape into the extracellular space. Neutrophils, lymphocytes, monocytes, eosinophils and basophils all use this pathway.'},
+  {label:'Chemotaxis', detail:'<b>Chemotaxis:</b> after crossing the endothelium, basement membrane, and perivascular tissue, leukocytes are guided toward the injury by chemotactic factors — a directed migration called chemotaxis.'},
+]);
+
+/* ---------------- Diagram: phagocytosis ---------------- */
+wireChips(document.getElementById('phagoFlow'), document.getElementById('phagoDetail'), [
+  {label:'1 · Recognition & attachment', detail:'<b>Recognition & attachment:</b> cell-surface receptors on macrophages (mannose receptor, scavenger receptor) recognize microorganisms directly. Recognition is enhanced when microbes are coated with <b>opsonins</b> (IgG, C3b, plasma lectins) — a process called opsonization.'},
+  {label:'2 · Engulfment', detail:'<b>Engulfment:</b> cytoplasmic pseudopods form around the particle through activation of actin filaments beneath the cell membrane, enveloping it inside a phagocytic vacuole.'},
+  {label:'3 · Killing & degradation', detail:'<b>Killing & degradation:</b> O₂-dependent pathways (myeloperoxidase–H₂O₂–halide system producing HOCl; or superoxide/hydroxyl radicals via glutathione peroxidase) and O₂-independent pathways (lysosome, lactoferrin) destroy the microbe.'},
+]);
+
+/* ---------------- Diagram: transudate vs exudate ---------------- */
+const tevRows = [
+  {feature:'Protein content', t:'Low', e:'High (includes immunoglobulins)', detail:'<b>Protein content:</b> transudate is protein-poor; exudate is protein-rich, containing immunoglobulins.'},
+  {feature:'Cause', t:'Hydrostatic / oncotic pressure change', e:'Increased vascular permeability', detail:'<b>Cause:</b> transudate results from a pressure imbalance (e.g. venous obstruction, low colloid osmotic pressure); exudate results from vessels becoming leakier during inflammation.'},
+  {feature:'Cellular content', t:'Few cells', e:'May contain white and red cells', detail:'<b>Cellular content:</b> transudate is largely acellular; exudate can carry leukocytes and red cells along with the fluid.'},
+];
+const tevBody = document.querySelector('#tevTable tbody');
+const tevDetail = document.getElementById('tevDetail');
+tevRows.forEach(r=>{
+  const tr = document.createElement('tr');
+  tr.className='clickable';
+  tr.innerHTML = `<td><b>${r.feature}</b></td><td>${r.t}</td><td>${r.e}</td>`;
+  tr.addEventListener('click', ()=>{ tevDetail.innerHTML=r.detail; tevDetail.classList.add('show'); });
+  tevBody.appendChild(tr);
+});
+
+/* ---------------- Diagram: mediators ---------------- */
+const mediators = [
+  {name:'Histamine', origin:'Mast cells & basophils', detail:'<b>Histamine</b> — origin: mast cells & basophils. Function: vascular leakage.'},
+  {name:'Prostaglandins', origin:'All leukocytes', detail:'<b>Prostaglandins</b> — origin: all leukocytes. Function: vasodilation, pain, and fever.'},
+  {name:'Lysosomal enzymes', origin:'Neutrophils & macrophages', detail:'<b>Lysosomal enzymes</b> — origin: neutrophils & macrophages. Function: bacterial and tissue destruction.'},
+  {name:'Inflammatory cytokines', origin:'Macrophages & lymphocytes', detail:'<b>Inflammatory cytokines</b> — origin: macrophages & lymphocytes. Function: leukocyte activation.'},
+  {name:'Leukotrienes (LTB4)', origin:'All leukocytes', detail:'<b>Leukotrienes (LTB4)</b> — origin: all leukocytes. Function: chemoattractant.'},
+  {name:'Activated oxygen species', origin:'All leukocytes', detail:'<b>Activated oxygen species</b> — origin: all leukocytes. Function: endothelial and tissue damage.'},
+  {name:'Nitric oxide', origin:'Macrophages', detail:'<b>Nitric oxide</b> — origin: macrophages. Function: leukocyte activation.'},
+  {name:'Complement (C3a, C5a)', origin:'Plasma cascade', detail:'<b>Complement C3a & C5a</b> — increase vascular permeability; C5a also drives chemotaxis; C3b/C3bi promote opsonization.'},
+  {name:'Factor XII (Hageman factor)', origin:'Plasma cascade', detail:'<b>Factor XII (Hageman factor)</b> — its activation recruits four systems: the kinin system, the clotting system, the fibrinolytic system, and the complement system.'},
+];
+const medBody = document.querySelector('#medTable tbody');
+const medDetail = document.getElementById('medDetail');
+mediators.forEach(m=>{
+  const tr = document.createElement('tr');
+  tr.className='clickable';
+  tr.innerHTML = `<td><b>${m.name}</b></td><td>${m.origin}</td>`;
+  tr.addEventListener('click', ()=>{ medDetail.innerHTML=m.detail; medDetail.classList.add('show'); });
+  medBody.appendChild(tr);
+});
+
+/* ---------------- Diagram: outcomes ---------------- */
+wireChips(document.getElementById('outFlow'), document.getElementById('outDetail'), [
+  {label:'Resolution', detail:'<b>Resolution:</b> complete restoration of normal tissue structure and function once the injurious agent is cleared.'},
+  {label:'Repair / regeneration', detail:'<b>Healing by repair or regeneration:</b> damaged tissue is reconstituted, sometimes with scar (fibrous) tissue.'},
+  {label:'Chronic inflammation', detail:'<b>Progression to chronic inflammation:</b> occurs when the acute response fails to clear the irritant.'},
+  {label:'Spread', detail:'<b>Spread:</b> direct extension (cellulitis), via lymphatics, or via the bloodstream (septicemia).'},
+  {label:'Death', detail:'<b>Death:</b> the most severe possible outcome when inflammation and its complications overwhelm the tissue or the body.'},
+], {shape:'flow', arrows:false});
+
+/* ================= MINI MAP ================= */
+const miniMap = [
+  {title:'Definition', body:'The local response of living mammalian tissue to injury from any agent. It is a body defense reaction in order to <b>eliminate</b> or limit the spread of the injurious agent, followed by <b>removal</b> of necrosed cells and tissue — but it is itself capable of causing tissue <b>damage</b>.'},
+  {title:'Cardinal signs', body:'<ul><li><b>Redness</b> — hyperaemia</li><li><b>Heat</b> — hyperaemia</li><li><b>Swelling</b> — exudation</li><li><b>Pain</b> — nerve stimulation and chemical mediators</li><li><b>Loss of function</b></li></ul>'},
+  {title:'Types of inflammation', body:'<ul><li><b>Acute:</b> fairly rapid onset, quickly becomes severe, usually manifests for only a few days, but may persist for several days or weeks.</li><li><b>Subacute:</b> a condition intermediate between chronic and acute inflammation, exhibiting some of the characteristics of each.</li><li><b>Chronic:</b> may result from failure to eliminate an acute inflammatory irritant, from an autoimmune response to a self-antigen, or from an innately chronic irritant of low intensity that persists. Characterized by simultaneous inflammation and repair, with recruitment and activation of macrophages, lymphocytes, and other cells triggered by cytokines and growth factors.</li></ul>'},
+  {title:'Beneficial effects', body:'<ul><li>Serves to destroy, dilute, or wall off the injurious agent.</li><li>Heals and reconstitutes the damaged tissue.</li><li>"Memorizes" the infection (immune memory).</li></ul>'},
+  {title:'Harmful effects', body:'<ul><li>May cause hypersensitivity reactions to insect bites, drugs, and toxins.</li><li>Underlies common chronic diseases such as rheumatoid arthritis, atherosclerosis, and lung fibrosis.</li><li>Repair by fibrosis may cause disfiguring scars or fibrous bands leading to intestinal obstruction or limited joint mobility.</li></ul>'},
+  {title:'Causes — exogenous', body:'<b>Physical agents:</b> mechanical (fractures, foreign bodies, sand), thermal (burns, freezing).<br><br><b>Chemical agents:</b> toxic gases, acids, bases.<br><br><b>Biological agents:</b> bacteria, viruses, parasites.'},
+  {title:'Causes — endogenous', body:'<b>Circulation disorders:</b> thrombosis, infarction, hemorrhage.<br><br><b>Enzyme activation:</b> e.g. acute pancreatitis.<br><br><b>Metabolic product deposits:</b> e.g. uric acid, urea.'},
+  {title:'Pathogenesis', body:'Three main processes occur at the site of inflammation, due to the release of chemical mediators:<ul><li>Increased blood flow (redness and warmth)</li><li>Increased vascular permeability (swelling)</li><li>Leukocytic infiltration</li></ul>'},
+  {title:'Components of the response', body:'<b>Vascular reaction</b> and <b>cellular reaction.</b> The cells and molecules of host defense — including leukocytes and plasma proteins — normally circulate in the blood; the goal of the inflammatory reaction is to bring them to the site of infection or tissue damage.'},
+  {title:'Hemodynamic changes', body:'<ul><li><b>Transient vasoconstriction:</b> arterioles constrict within seconds due to neurogenic or chemical stimuli (histamine, bradykinin). Blood flow re-establishes in 3–5 seconds with mild injury, or lasts ~5 minutes with severe injury.</li><li><b>Persistent vasodilatation & stasis:</b> mainly arterioles, also venules/capillaries; obvious within half an hour, producing "active hyperemia" responsible for redness and warmth. Progressive vasodilatation raises hydrostatic pressure → transudation → swelling. Slowed circulation with protein-rich fluid loss concentrates red cells — called <b>stasis</b>.</li><li><b>Increased permeability of vessel walls:</b> protein-rich fluid and cells move into extravascular tissue, raising interstitial osmotic pressure and drawing more water out — this accumulation is the <b>exudate</b>.</li></ul>'},
+  {title:'Transudate vs. exudate', body:'<b>Transudate:</b> low protein content, usually caused by alterations in hydrostatic or oncotic pressure — implies a hydrostatic (pressure) problem.<br><br><b>Exudate:</b> high protein content including immunoglobulins, caused by increased vascular permeability.'},
+  {title:'Cellular events', body:'The cellular phase of inflammation consists of two processes: <b>1) exudation of leucocytes</b> and <b>2) phagocytosis.</b>'},
+  {title:'Exudation of leucocytes', body:'Polymorphonuclear neutrophils (PMNs) comprise the first line of body defense, followed later by monocytes and macrophages. The changes leading to migration of leucocytes: <ul><li>Margination & pavementing</li><li>Rolling & adhesion</li><li>Emigration & diapedesis</li><li>Chemotaxis</li></ul>'},
+  {title:'Margination & pavementing', body:'When blood flow slows early in inflammation due to stasis, white cells fall out of the central column and assume a peripheral position along the endothelial surface. As the central stream widens and the peripheral plasma zone narrows (due to loss of plasma by exudation), this is called <b>margination</b>. As a result, neutrophils come close to the vessel wall — this is <b>pavementing</b>.'},
+  {title:'Rolling & adhesion', body:'Peripherally marginated and pavemented neutrophils slowly roll over the endothelial cells lining the vessel wall (<b>rolling phase</b>). This is followed by a transient bond between leucocytes and endothelial cells, becoming firmer (<b>adhesion phase</b>).'},
+  {title:'Emigration & diapedesis', body:'Following firm adhesion, leukocytes insert pseudopods into the junctions between endothelial cells and the basement membrane. Eventually they traverse the basement membrane and escape into the extracellular space by inducing damage between endothelial cells through the effect of collagenase (<b>emigration phase</b>). Neutrophils, lymphocytes, monocytes, eosinophils, and basophils all use the same pathway.'},
+  {title:'Chemotaxis', body:'The transmigration of leucocytes after crossing several barriers (endothelium, basement membrane, perivascular myofibroblasts, and matrix) to reach the interstitial tissues is a chemotactic factor–mediated process called <b>chemotaxis</b>.'},
+  {title:'Phagocytosis — overview', body:'Phagocytosis is the process of engulfment of solid particulate material by cells (cell-eating). The performing cells are called phagocytic cells. Two main types: <b>i)</b> polymorphonuclear neutrophils (PMNs), appearing early, sometimes called microphages; <b>ii)</b> circulating monocytes and fixed-tissue mononuclear phagocytes, commonly called macrophages. Phagocytosis of the microbe involves three steps: recognition & attachment, engulfment, killing & degradation.'},
+  {title:'Recognition & attachment', body:'Cell-surface receptors on macrophages recognize microorganisms: the mannose receptor and scavenger receptor. Phagocytosis is further enhanced when microorganisms are coated with specific proteins, <b>opsonins</b>, from the serum — a process called opsonization ("preparing for eating"). Major opsonins: IgG antibodies, the C3b breakdown product of complement, and certain plasma lectins.'},
+  {title:'Engulfment', body:'Accomplished by formation of cytoplasmic pseudopods around the particle due to activation of actin filaments beneath the cell wall, enveloping it in a phagocytic vacuole.'},
+  {title:'Killing & degradation', body:'<b>O₂-dependent (formation of oxygen reactive species):</b> Myeloperoxidase-dependent — the H₂O₂–myeloperoxidase–halide system produces HOCl (i.e. bleach). Myeloperoxidase-independent — uses superoxide (H₂O₂) and hydroxyl radicals through glutathione peroxidase.<br><br><b>Oxygen-independent killing:</b> lysosome, lactoferrin.'},
+  {title:'Resolution or progression', body:'<ol><li>Resolution</li><li>Healing by repair or regeneration</li><li>Progression into chronic inflammation</li><li>Spread — direct (cellulitis), lymphatic, or blood vessels (septicemia)</li><li>Death</li></ol>'},
+  {title:'Chemical mediators — overview', body:'Chemical mediators account for the events of inflammation. Inflammation follows this sequence: cell injury → chemical mediators → acute inflammation (vascular & cellular events). Chemical mediators can be derived from plasma or from cells.'},
+  {title:'Plasma-derived mediators', body:'<b>Complement activation:</b> C3a & C5a increase vascular permeability; C5a activates chemotaxis; C3b/C3bi promote opsonization.<br><br><b>Factor XII (Hageman factor):</b> its activation recruits four systems — the kinin system, the clotting system, the fibrinolytic system, and the complement system.'},
+  {title:'Cell-derived mediators', body:'<b>Histamine</b> — mast cells/basophils → vascular leakage.<br><b>Prostaglandins</b> — all leukocytes → vasodilation, pain, fever.<br><b>Lysosomal enzymes</b> — neutrophils/macrophages → bacterial and tissue destruction.<br><b>Inflammatory cytokines</b> — macrophages/lymphocytes → leukocyte activation.<br><b>Leukotrienes (LTB4)</b> — all leukocytes → chemoattractant.<br><b>Activated oxygen species</b> — all leukocytes → endothelial and tissue damage.<br><b>Nitric oxide</b> — macrophages → leukocyte activation.'},
+  {title:'Systemic manifestations', body:'<ul><li><b>Pyrexia (fever):</b> due to inflammatory mediator effect (e.g. prostaglandin).</li><li><b>Negative nitrogen balance:</b> occurs when more nitrogen is excreted than taken in, indicating wasting or destruction of tissue.</li><li><b>Increased ESR:</b> a measure of red blood cell settling over one hour; indicates inflammation and increases in many diseases.</li><li><b>Acute phase reactions:</b> somnolence, anorexia, malaise, hypotension, increased pulse, rigors (shivering), chills, and synthesis of acute-phase proteins by the liver (CRP, serum amyloid A, serum amyloid P, complement and coagulation proteins).</li><li><b>Anemia</b></li><li><b>Leukocytosis:</b> common with bacterial infection, from accelerated release of cells from the bone marrow post-mitotic reserve pool (caused by IL-1 and TNF).</li><li><b>Leucopenia:</b> associated with typhoid fever and infections caused by viruses, Rickettsiae, and certain protozoa.</li></ul>'},
+  {title:'Morphological types — catarrhal & serous', body:'<b>Catarrhal:</b> a mild acute inflammation of the mucous membrane, with excessive mucus fluid secretion and little tissue necrosis. E.g. common cold → nasal obstruction + congestion.<br><br><b>Serous:</b> inflammation of a serous membrane characterized by clear fluid in the pleural, peritoneal, pericardial, and synovial cavities → effusion (fluid in a serous cavity), a serous exudate (watery fluid). E.g. skin blisters caused by burns or viral infection.'},
+  {title:'Morphological types — suppurative', body:'Large amounts of purulent exudate (pus) caused by pyogenic bacteria, e.g. Staph. aureus and Strept. pyogenes. E.g. boil/furuncle — an abscess of hair follicles. Empyema — collection of pus in a body cavity or hollow organ, e.g. gall bladder.<br><br><b>Pus:</b> a thick, creamy, viscous, yellowish-greenish fluid consisting of dead and dying neutrophils, fluid exudate, bacteria, and necrotic tissue/cellular debris.<br><br><b>Abscess:</b> a localized collection of pus with a central necrotic cavity surrounded by a layer of inflamed granulation tissue (pyogenic membrane); outcome → burst, surgical drainage, and/or fibrosis.'},
+  {title:'Morphological types — fibrinous & pseudomembranous', body:'<b>Fibrinous:</b> a severe injury with excessive fibrin deposition in a serous cavity, called fibrinous exudate. Both visceral and parietal layers stick together via fibrin meshwork, giving a "bread and butter" appearance when separated. May resolve via fibrinolysis and macrophage removal, or organize into scarring with fibrous adhesion of pleura or pericardium.<br><br><b>Pseudomembranous:</b> a very severe inflammation of mucous membranes with extensive necrosis of the surface epithelium and severe acute inflammation of underlying tissue, with formation of a pseudo-membrane consisting of exudate, fibrin, neutrophils, red blood cells, bacteria, and tissue debris — a white/dirty membrane. E.g. diphtheria (larynx); pseudomembranous colitis (Clostridium difficile).'},
+  {title:'Morphological types — gangrenous & ulcerative', body:'<b>Gangrenous:</b> tissue necrosis with putrefaction due to invasion and digestion by saprophytic bacteria, characterized by discoloration of tissue with bad odor (foul smell). E.g. diabetic foot, ischemia of the leg, gangrenous bowel.<br><br><b>Ulceration:</b> loss of continuity (a local defect) of the surface epithelium of the skin or GIT mucosa, associated with acute and chronic inflammation that induces necrosis of superficial layers of the involved organ. E.g. gastric (peptic) ulcer.'},
+];
+const mmList = document.getElementById('mmList');
+const mmPanel = document.getElementById('mmPanel');
+miniMap.forEach((topic, i)=>{
+  const b = document.createElement('button');
+  b.textContent = topic.title;
+  b.addEventListener('click', ()=>{
+    mmList.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    mmPanel.innerHTML = `<h3>${topic.title}</h3><div class="body">${topic.body}</div>`;
+  });
+  mmList.appendChild(b);
+});
+
+/* ================= FLASH CARDS ================= */
+const flashcardsByLevel = {
+  easy: [
+  {f:'Definition of acute inflammation', b:'The local response of living mammalian tissue to injury from any agent — a defense reaction to eliminate or limit the spread of the injurious agent.'},
+  {f:'What follows elimination of the injurious agent?', b:'Removal of the necrosed cells and tissues.'},
+  {f:'Can inflammation itself cause harm?', b:'Yes — inflammation is itself capable of causing tissue damage.'},
+  {f:'Cardinal sign — Redness, cause', b:'Hyperaemia (increased blood flow to the area).'},
+  {f:'Cardinal sign — Heat (warmth), cause', b:'Hyperaemia (increased blood flow).'},
+  {f:'Cardinal sign — Swelling, cause', b:'Exudation of fluid into the tissues.'},
+  {f:'Cardinal sign — Pain, cause', b:'Nerve stimulation and chemical mediators.'},
+  {f:'The fifth cardinal sign', b:'Loss of function.'},
+  {f:'List the five cardinal signs of inflammation', b:'Redness, Swelling, Heat, Pain, Loss of function.'},
+  {f:'Acute inflammation — onset and duration', b:'Fairly rapid onset, quickly becomes severe, usually manifested for only a few days, but may persist for several days or even a few weeks.'},
+  {f:'Subacute inflammation', b:'A condition intermediate between chronic and acute inflammation, exhibiting some of the characteristics of each.'},
+  {f:'Chronic inflammation — three possible causes', b:'Failure to eliminate an acute inflammatory irritant, an autoimmune response to a self-antigen, or an innately chronic irritant of low intensity that persists.'},
+  {f:'Chronic inflammation — main hallmark', b:'Simultaneous inflammation and repair.'},
+  {f:'Chronic inflammation — cells recruited and activated', b:'Macrophages, lymphocytes, and other cells, triggered by cytokines and growth factors.'},
+  {f:'Beneficial effect of inflammation #1', b:'Serves to destroy, dilute, or wall off the injurious agents.'},
+  {f:'Beneficial effect of inflammation #2', b:'Heals and reconstitutes the damaged tissue.'},
+  {f:'Beneficial effect of inflammation #3', b:'Memorizes the infection (immune memory).'},
+  {f:'Harmful effect of inflammation #1', b:'May cause hypersensitivity reactions to insect bites, drugs, and toxins.'},
+  {f:'Harmful effect of inflammation #2', b:'Underlies common chronic diseases such as rheumatoid arthritis, atherosclerosis, and lung fibrosis.'},
+  {f:'Harmful effect of inflammation #3', b:'Repair by fibrosis may lead to disfiguring scars or fibrous bands that can cause intestinal obstruction or limit joint mobility.'},
+  {f:'Exogenous physical cause — mechanical agents', b:'Fractures, foreign bodies, sand, etc.'},
+  {f:'Exogenous physical cause — thermal agents', b:'Burns and freezing.'},
+  {f:'Exogenous chemical agents (examples)', b:'Toxic gases, acids, bases.'},
+  {f:'Exogenous biological agents (examples)', b:'Bacteria, viruses, parasites.'},
+  {f:'Endogenous cause — circulation disorders', b:'Thrombosis, infarction, hemorrhage.'},
+  {f:'Endogenous cause — enzyme activation example', b:'Acute pancreatitis.'},
+  {f:'Endogenous cause — metabolic product deposits', b:'Uric acid, urea.'},
+  {f:'Three main processes in the pathogenesis of inflammation', b:'Increased blood flow, increased vascular permeability, leukocytic infiltration.'},
+  {f:'Two components of the inflammatory response', b:'Vascular reaction and cellular reaction.'},
+  {f:'Goal of the cellular components (leukocytes, plasma proteins)', b:'To bring them to the site of infection or tissue damage.'},
+  {f:'Three main features (categories) of acute inflammation', b:'A) Hemodynamic changes, B) Cellular events (leukocyte recruitment and activation), C) Resolution or progression.'},
+  {f:'The four hemodynamic changes, in order', b:'1) Transient vasoconstriction 2) Persistent vasodilatation and stasis 3) Increased permeability of vessel walls 4) Fluid exudate and formation of edema.'},
+  {f:'The two cellular events of acute inflammation', b:'Cellular exudate (neutrophil emigration and accumulation) and phagocytosis.'},
+  {f:'Transient vasoconstriction — definition', b:'Vasoconstriction of the arterioles occurring within seconds, due to neurogenic or chemical stimuli.'},
+  {f:'Chemical stimuli that trigger transient vasoconstriction', b:'Histamine and bradykinin.'},
+  {f:'When does persistent vasodilatation become obvious?', b:'Within half an hour of injury.'},
+  {f:'Active hyperemia — definition', b:'Increased blood volume in the microvascular bed of the area due to vasodilatation.'},
+  {f:'Stasis — definition', b:'The morphological finding of dilated small vessels packed with red cells, due to slowed blood circulation.'},
+  {f:'Exudate — definition', b:'The resulting protein-rich fluid accumulation caused by increased vascular permeability.'},
+  {f:'Transudate — definition', b:'A fluid with low protein content, usually caused by alterations in hydrostatic or oncotic pressure.'},
+  {f:'The two processes of the cellular phase of inflammation', b:'Exudation of leucocytes and phagocytosis.'},
+  {f:'The four steps leading to migration of leucocytes', b:'A) Margination and pavementing B) Rolling and adhesion C) Emigration and diapedesis D) Chemotaxis.'},
+  {f:'Margination — definition', b:'White cells falling out of the central blood column and assuming a peripheral position along the endothelial surface as blood flow slows.'},
+  {f:'Pavementing — definition', b:'Neutrophils of the central column coming close to the vessel wall as a result of margination.'},
+  {f:'Rolling phase — definition', b:'Peripherally marginated and pavemented neutrophils slowly rolling over the endothelial cells lining the vessel wall.'},
+  {f:'Adhesion phase — definition', b:'The transient bond between leucocytes and endothelial cells becoming firmer.'},
+  {f:'Emigration and diapedesis — definition', b:'Leukocytes inserting pseudopods into the junctions between endothelial cells and traversing the basement membrane to escape into the extracellular space.'},
+  {f:'Chemotaxis — definition', b:'The transmigration of leucocytes after crossing several barriers to reach the interstitial tissues, mediated by chemotactic factors.'},
+  {f:'Phagocytosis — definition', b:'The process of engulfment of solid particulate material by cells (cell-eating).'},
+  {f:'Microphages', b:'Polymorphonuclear neutrophils (PMNs), which appear early in the acute inflammatory response.'},
+  {f:'Macrophages', b:'Circulating monocytes and fixed tissue mononuclear phagocytes.'},
+  {f:'The three steps of phagocytosis', b:'1) Recognition and attachment 2) Engulfment 3) Killing and degradation.'},
+  {f:'Opsonization — definition', b:'The process of coating microorganisms with specific serum proteins (opsonins) to enhance phagocytosis — preparing for eating.'},
+  {f:'Major opsonins', b:'IgG antibodies, the C3b breakdown product of complement, and certain plasma lectins.'},
+  {f:'Engulfment mechanism', b:'Formation of cytoplasmic pseudopods around the particle due to activation of actin filaments, enveloping it in a phagocytic vacuole.'},
+  {f:'Product of the myeloperoxidase-dependent killing system', b:'HOCl (bleach), from the H2O2-myeloperoxidase-halide system.'},
+  {f:'Oxygen-independent killing mechanisms', b:'Lysosome and lactoferrin.'},
+  {f:'Cause of pyrexia (fever) in inflammation', b:'The effect of inflammatory mediators, e.g. prostaglandins.'},
+  {f:'Erythrocyte sedimentation rate (ESR) — definition', b:'A measure of the settling of red blood cells in a tube of blood during one hour; it is an indication of inflammation.'},
+  {f:'The seven morphological types of acute inflammation', b:'Catarrhal, Serous, Suppurative (Purulent), Fibrinous, Pseudomembranous, Gangrenous, Ulcerative.'},
+  ],
+  medium: [
+  {f:'Why do redness and heat occur together?', b:'Both result from hyperaemia — vasodilatation increases blood volume and flow in the microvascular bed, producing redness and warmth simultaneously.'},
+  {f:'What links pain to the inflammatory mediators?', b:'Pain arises from nerve stimulation combined with the direct irritant effect of chemical mediators such as prostaglandins and bradykinin.'},
+  {f:'How does subacute inflammation relate to acute and chronic forms?', b:'It is a transitional condition showing overlapping features of both acute inflammation and chronic inflammation.'},
+  {f:'What three routes can lead to chronic inflammation?', b:'Failure to eliminate the acute irritant, an autoimmune reaction to a self-antigen, or a persistent low-intensity innate irritant.'},
+  {f:'What role do cytokines and growth factors play in chronic inflammation?', b:'They coordinate the simultaneous recruitment and activation of macrophages and lymphocytes alongside ongoing tissue repair.'},
+  {f:'How can the same fibrotic repair process be both beneficial and harmful?', b:'It reconstitutes damaged tissue (beneficial) but can also form disfiguring scars or fibrous bands that obstruct organs or limit joint movement (harmful).'},
+  {f:'What do rheumatoid arthritis, atherosclerosis, and lung fibrosis have in common?', b:'They are chronic diseases in which an underlying inflammatory reaction is a central pathogenic mechanism.'},
+  {f:'How does a fibrous band cause intestinal obstruction?', b:'Scar tissue from fibrotic repair can form adhesions or bands that mechanically kink or compress the bowel.'},
+  {f:'What distinguishes mechanical from thermal exogenous causes?', b:'Mechanical agents cause direct physical disruption (fractures, foreign bodies), whereas thermal agents injure through temperature extremes (burns, freezing).'},
+  {f:'Why are toxic gases, acids and bases classified separately from bacteria and viruses?', b:'Chemical agents cause direct chemical or corrosive tissue injury, while biological agents cause injury via living organisms invading and multiplying in the tissue.'},
+  {f:'Why are thrombosis, infarction, and hemorrhage classified as endogenous causes?', b:'They arise from disorders of the body own circulation rather than from an external agent.'},
+  {f:'How does acute pancreatitis illustrate an endogenous cause of inflammation?', b:'Premature activation of the pancreas own digestive enzymes causes autodigestion and inflammation of pancreatic tissue.'},
+  {f:'What process is linked to uric acid deposition as an endogenous cause?', b:'Accumulation of a metabolic product (uric acid) deposits in tissue and triggers an inflammatory reaction.'},
+  {f:'How does increased blood flow (pathogenesis process 1) produce a clinical sign?', b:'It produces redness and warmth at the site of inflammation.'},
+  {f:'How does increased vascular permeability (pathogenesis process 2) produce a clinical sign?', b:'It produces swelling, due to protein-rich fluid leaving the vessels into the tissue.'},
+  {f:'What is the functional role of leukocytic infiltration in pathogenesis?', b:'It brings the cells of host defense to the site to eliminate the injurious agent and clear damaged tissue.'},
+  {f:'How does the duration of transient vasoconstriction differ with injury severity?', b:'With mild injury, flow re-establishes in 3 to 5 seconds; with more severe injury, vasoconstriction may last about 5 minutes.'},
+  {f:'When does persistent vasodilatation become obvious, and why does it matter?', b:'Within half an hour of injury — marking the shift toward sustained active hyperemia responsible for redness and warmth.'},
+  {f:'Why is vasodilatation-driven hyperemia called active?', b:'Because it reflects an actively increased blood volume delivered to the microvascular bed, rather than passive pooling.'},
+  {f:'What mechanism converts vasodilatation into visible edema?', b:'Progressive vasodilatation raises local hydrostatic pressure, driving transudation of fluid into the extracellular space.'},
+  {f:'What causes the morphological appearance of stasis (RBC-packed vessels)?', b:'Slowing of circulation from increased microvascular permeability plus outpouring of protein-rich fluid concentrates red cells within small vessels.'},
+  {f:'What are the two Starling-force mechanisms that produce a transudate?', b:'Increased hydrostatic pressure (e.g. venous outflow obstruction) or decreased colloid osmotic pressure (e.g. reduced protein synthesis or increased protein loss).'},
+  {f:'Which clinical condition classically raises hydrostatic pressure to cause a transudate?', b:'Congestive heart failure, via venous outflow obstruction.'},
+  {f:'Which organ diseases classically lower colloid osmotic pressure to cause a transudate?', b:'Liver disease (decreased protein synthesis) and kidney disease (increased protein loss).'},
+  {f:'Why does exudate contain high protein while transudate does not?', b:'Exudate results from increased vascular permeability with widened interendothelial spaces, allowing protein and cells to leak out; transudate results from a pressure imbalance without a permeability defect.'},
+  {f:'How does protein leakage worsen tissue swelling?', b:'Leaked protein raises the osmotic pressure of the interstitial fluid, drawing even more water out of the blood into the tissues.'},
+  {f:'What is the correct sequence of leukocyte exudation events?', b:'Margination and pavementing, then rolling and adhesion, then emigration and diapedesis, then chemotaxis.'},
+  {f:'What happens to the central and peripheral blood streams during margination?', b:'The central stream of cells widens while the peripheral plasma zone narrows, due to loss of plasma by exudation.'},
+  {f:'How does pavementing differ from margination?', b:'Margination is the redistribution of white cells to the vessel periphery; pavementing is the resulting close apposition of neutrophils against the vessel wall.'},
+  {f:'How does adhesion differ from rolling?', b:'Rolling is a slow, transient interaction as neutrophils move along the endothelium; adhesion is a firmer, more stable bond that follows it.'},
+  {f:'What role does collagenase play in emigration?', b:'It induces damage between endothelial cells, allowing leukocytes to traverse the basement membrane into the extracellular space.'},
+  {f:'Which cell types all use the same emigration pathway?', b:'Neutrophils, lymphocytes, monocytes, eosinophils, and basophils.'},
+  {f:'What barriers must a leukocyte cross during chemotaxis?', b:'Endothelium, basement membrane, perivascular myofibroblasts, and matrix.'},
+  {f:'How do microphages and macrophages differ in origin and timing?', b:'Microphages (PMNs) appear early in acute inflammation; macrophages (monocytes and fixed tissue phagocytes) are recruited later.'},
+  {f:'What two types of surface receptors let macrophages recognize microorganisms directly?', b:'Mannose receptors and scavenger receptors.'},
+  {f:'Why is opsonization described as preparing for eating?', b:'Coating a microbe with opsonins (IgG, C3b, lectins) marks it for more efficient recognition and engulfment by phagocytes.'},
+  {f:'What cytoskeletal element drives pseudopod formation in engulfment?', b:'Activation of actin filaments beneath the cell membrane.'},
+  {f:'How do the two O2-dependent killing pathways differ?', b:'Myeloperoxidase-dependent killing uses the H2O2-myeloperoxidase-halide system to form HOCl; myeloperoxidase-independent killing uses superoxide and hydroxyl radicals via glutathione peroxidase.'},
+  {f:'What is the chemical end-product of the myeloperoxidase-halide system?', b:'HOCl, essentially bleach.'},
+  {f:'What two agents mediate oxygen-independent microbial killing?', b:'Lysosome and lactoferrin.'},
+  {f:'How do C3a and C5a differ functionally from C3b?', b:'C3a and C5a increase vascular permeability (and C5a also drives chemotaxis), while C3b and C3bi promote opsonization.'},
+  {f:'What four systems does activated Factor XII (Hageman factor) recruit?', b:'The kinin, clotting, fibrinolytic, and complement systems.'},
+  {f:'How does histamine origin and function differ from prostaglandins?', b:'Histamine (from mast cells and basophils) causes vascular leakage; prostaglandins (from all leukocytes) cause vasodilation, pain, and fever.'},
+  {f:'How do inflammatory cytokines differ from leukotrienes in function?', b:'Cytokines (from macrophages and lymphocytes) activate leukocytes; leukotrienes (LTB4, from all leukocytes) act as chemoattractants.'},
+  {f:'Why does negative nitrogen balance signal tissue wasting?', b:'Because more nitrogen (largely stored in protein) is being excreted than taken in, indicating breakdown or destruction of tissue rather than growth.'},
+  {f:'Name three acute-phase proteins synthesized by the liver during inflammation.', b:'C-reactive protein (CRP), serum amyloid A (SAA), and serum amyloid P (SAP).'},
+  {f:'What cytokines drive the leukocytosis of bacterial infection?', b:'IL-1 and TNF, which accelerate release of cells from the bone marrow post-mitotic reserve pool.'},
+  {f:'Which infections are classically associated with leucopenia rather than leukocytosis?', b:'Typhoid fever, and infections caused by viruses, Rickettsiae, and certain protozoa.'},
+  {f:'How does catarrhal inflammation differ from serous inflammation?', b:'Catarrhal involves mucous membranes with excessive mucus secretion and little necrosis (e.g. common cold); serous involves serous membranes with clear watery effusion (e.g. burn blister).'},
+  {f:'How does an abscess differ from empyema?', b:'An abscess is a localized collection of pus with a necrotic centre within tissue; empyema is a collection of pus within a body cavity or hollow organ, e.g. the gall bladder.'},
+  ],
+  hard: [
+  {f:'Reconcile the definition of acute inflammation with its potential for self-harm.', b:'Acute inflammation is a defense reaction that eliminates or limits the injurious agent and removes necrosed tissue — yet the same vascular and cellular events that achieve this can themselves damage adjacent healthy tissue.'},
+  {f:'Why is loss of function considered a composite cardinal sign rather than a purely mechanical one?', b:'It results from the combined effects of pain, swelling, and the underlying tissue damage — not from a single isolated cause.'},
+  {f:'Distinguish subacute inflammation from both acute and chronic inflammation using their defining features.', b:'Acute inflammation has rapid onset and short duration with mainly vascular and neutrophilic events; chronic inflammation shows simultaneous inflammation and repair with macrophages and lymphocytes over a prolonged course; subacute lies between the two, showing overlapping features of both.'},
+  {f:'Explain the mechanistic difference between acute and chronic inflammation in terms of tissue-level processes.', b:'Acute inflammation is dominated by transient hemodynamic changes and neutrophil-mediated exudation and phagocytosis; chronic inflammation is defined by simultaneous, ongoing inflammation and repair coordinated by cytokines and growth factors, rather than a single self-limited event.'},
+  {f:'How can the same inflammatory mechanism be both protective and harmful?', b:'The mediator and cellular responses that destroy pathogens (beneficial) can be triggered inappropriately by insect bites, drugs, or toxins, producing hypersensitivity reactions (harmful) — the mechanism is the same, only the trigger and magnitude differ.'},
+  {f:'Explain the pathophysiological link between a persistent low-grade irritant and chronic diseases such as atherosclerosis.', b:'A chronic, low-intensity irritant sustains simultaneous inflammation and repair; this ongoing cycle of injury, macrophage activity, and fibrotic repair in vessel walls contributes to chronic diseases such as atherosclerosis.'},
+  {f:'Contrast the four categories of exogenous cause by their mechanism of injury.', b:'Mechanical agents cause direct physical disruption; thermal agents injure via extreme temperature; chemical agents cause corrosive or toxic damage; biological agents cause injury through invasion and multiplication of living organisms.'},
+  {f:'Contrast circulation-disorder causes with enzyme-activation causes of endogenous inflammation.', b:'Circulation disorders injure tissue through disrupted blood supply, whereas enzyme activation (e.g. acute pancreatitis) injures tissue through autodigestion by the body own prematurely activated enzymes.'},
+  {f:'Map the three pathogenesis processes onto the four hemodynamic changes.', b:'Increased blood flow corresponds to transient vasoconstriction followed by persistent vasodilatation; increased vascular permeability corresponds to increased permeability of vessel walls and edema formation; leukocytic infiltration corresponds to the cellular events of exudation and phagocytosis.'},
+  {f:'Trace the full hemodynamic sequence of acute inflammation with approximate timing.', b:'Transient vasoconstriction (seconds, up to about 5 minutes in severe injury), then persistent vasodilatation and stasis (obvious within about 30 minutes), then increased vessel wall permeability, then fluid exudate and edema formation from raised hydrostatic pressure.'},
+  {f:'Explain the physiological basis and reversal of transient vasoconstriction.', b:'It is triggered by neurogenic or chemical stimuli (histamine, bradykinin) causing brief arteriolar constriction; with mild injury flow re-establishes within 3 to 5 seconds, while with severe injury constriction can persist about 5 minutes before vasodilatation follows.'},
+  {f:'Explain why stasis is morphologically distinct from simple vasodilation.', b:'In simple vasodilation blood still flows freely, but in stasis, slowed circulation combined with loss of protein-rich plasma by exudation concentrates red cells within dilated small vessels.'},
+  {f:'Trace the full mechanistic chain from increased vascular permeability to visible edema.', b:'Increased permeability lets protein-rich fluid leak into extravascular tissue, raising interstitial osmotic pressure so more water is drawn from blood into tissue, combined with raised local hydrostatic pressure from vasodilatation to produce visible edema.'},
+  {f:'Compare transudate and exudate across protein content, cause, and cellular content.', b:'Transudate has low protein, few cells, and is caused by hydrostatic or oncotic pressure imbalance. Exudate has high protein including immunoglobulins, may contain white and red cells, and is caused by increased vascular permeability with vasodilation, stasis, and widened interendothelial spaces.'},
+  {f:'Explain how congestive heart failure versus liver or kidney disease each produce a transudate through different mechanisms.', b:'Congestive heart failure raises venous hydrostatic pressure via outflow obstruction; liver disease decreases protein synthesis and kidney disease increases protein loss, both lowering colloid osmotic pressure — different mechanisms producing the same low-protein transudate.'},
+  {f:'Trace the complete leukocyte journey from margination to chemotaxis, naming the key enzyme involved.', b:'Margination and pavementing, then rolling and firm adhesion, then emigration and diapedesis using collagenase to cross the basement membrane, then chemotaxis toward the chemotactic gradient.'},
+  {f:'How do neutrophils differ from monocytes and lymphocytes in the timeline and role of leukocyte recruitment?', b:'PMNs comprise the first line of defense and arrive early; monocytes and macrophages follow later, taking over phagocytic and repair-coordinating roles.'},
+  {f:'Why is basement membrane traversal necessary during emigration, and what mediates it?', b:'Leukocytes must cross the basement membrane to leave the vessel and act at the injury site; collagenase induces localized damage that permits this passage.'},
+  {f:'Integrate the phagocytosis pathway from recognition through killing.', b:'Recognition and attachment via mannose and scavenger receptors, enhanced by opsonins such as IgG, C3b, and lectins, then engulfment via actin-driven pseudopods forming a phagocytic vacuole, then killing and degradation by O2-dependent mechanisms (myeloperoxidase-halide producing HOCl, or superoxide/hydroxyl via glutathione peroxidase) or O2-independent lysosome and lactoferrin.'},
+  {f:'Distinguish the two O2-dependent killing pathways by their chemical end-products and enzymes.', b:'Myeloperoxidase-dependent killing uses the H2O2-myeloperoxidase-halide system to produce HOCl; myeloperoxidase-independent killing uses superoxide and hydroxyl radicals processed via glutathione peroxidase.'},
+  {f:'Explain the complement cascade three distinct inflammatory roles.', b:'C3a and C5a increase vascular permeability; C5a additionally activates chemotaxis; C3b and C3bi promote opsonization — one cascade with three separate downstream effects.'},
+  {f:'Explain the downstream consequences of Factor XII (Hageman factor) activation.', b:'Its activation recruits four interlinked plasma systems — kinin, clotting, fibrinolytic, and complement — coordinating vascular, coagulation, and inflammatory responses from a single trigger.'},
+  {f:'Compare the origin and function of histamine, prostaglandins, cytokines, leukotrienes, and nitric oxide.', b:'Histamine (mast cells/basophils) causes vascular leakage. Prostaglandins (all leukocytes) cause vasodilation, pain, fever. Cytokines (macrophages/lymphocytes) activate leukocytes. Leukotrienes/LTB4 (all leukocytes) act as chemoattractant. Nitric oxide (macrophages) activates leukocytes.'},
+  {f:'Explain the mechanistic basis of fever during inflammation.', b:'Chemical mediators, particularly prostaglandins, act as pyrogenic signals producing pyrexia as a systemic manifestation of the inflammatory response.'},
+  {f:'Explain the relationship between negative nitrogen balance and the systemic state of inflammation.', b:'Since most body nitrogen is stored in protein, a negative balance (excretion exceeding intake) reflects net protein and tissue breakdown, a catabolic systemic response accompanying significant inflammatory tissue destruction.'},
+  {f:'Explain why ESR rises during inflammation, according to the given definition.', b:'ESR measures how quickly red blood cells settle in a tube of blood over one hour; this settling rate increases as an indication of inflammation and of many other diseases.'},
+  {f:'List and explain the purpose of the acute-phase reactions.', b:'Somnolence, anorexia, malaise, hypotension, increased pulse, rigors (shivering), and chills (search for warmth) accompany synthesis of acute-phase proteins (CRP, SAA, SAP, complement, coagulation proteins) by the liver.'},
+  {f:'Contrast the cellular mechanism of leukocytosis with the pattern seen in leucopenia.', b:'Leukocytosis in bacterial infection results from IL-1 and TNF-driven accelerated release of cells from the bone marrow reserve pool; leucopenia, by contrast, is seen in typhoid fever and infections by viruses, Rickettsiae, and certain protozoa.'},
+  {f:'Differentiate all seven morphological types of acute inflammation by exudate character and a clinical example.', b:'Catarrhal — mucus, common cold; Serous — clear watery effusion, burn blister; Suppurative — pus, boil/furuncle/empyema; Fibrinous — fibrin, bread-and-butter pleura/pericardium; Pseudomembranous — necrotic pseudomembrane, diphtheria or C. difficile colitis; Gangrenous — putrefactive necrosis, diabetic foot; Ulcerative — epithelial defect, peptic ulcer.'},
+  {f:'Explain the pathophysiology of pus formation and the structure of an abscess wall.', b:'Pus is a thick, creamy fluid of dead and dying neutrophils, exudate, bacteria, and necrotic debris; an abscess is a localized collection of this pus with a central necrotic cavity surrounded by a pyogenic membrane, which can burst, be drained, or fibrose.'},
+  {f:'Explain the two possible outcomes of fibrinous inflammation.', b:'Fibrinous exudate may be degraded by fibrinolysis and removed by macrophages, leading to resolution; or, if fibrin removal is incomplete, it organizes into scarring with fibrous adhesion of the pleura or pericardium.'},
+  {f:'Explain why pseudomembrane composition is similar in diphtheria and C. difficile colitis despite different triggers.', b:'In both, extensive mucosal necrosis triggers formation of a pseudomembrane of exudate, fibrin, neutrophils, red cells, bacteria, and debris — but the trigger differs, diphtheria toxin in the larynx versus Clostridium difficile toxin in the colon.'},
+  {f:'Explain why gangrenous inflammation produces discoloration and foul odor.', b:'Saprophytic bacteria invade and digest necrotic tissue through putrefaction, and this bacterial breakdown produces the characteristic discoloration and foul smell.'},
+  {f:'Explain what defines an ulcer and its typical inflammatory association.', b:'An ulcer is loss of continuity of the surface epithelium of skin or GIT mucosa, associated with acute and chronic inflammation that has induced necrosis of the superficial layers of the involved organ, e.g. a peptic ulcer.'},
+  {f:'What five outcomes can follow acute inflammation, and how do they differ in severity?', b:'Resolution, healing by repair or regeneration, progression into chronic inflammation, spread (direct, lymphatic, or blood-borne), and death — an escalating spectrum from favorable to fatal.'},
+  {f:'Distinguish the three routes of spread and their clinical correlates.', b:'Direct spread through tissue produces cellulitis; lymphatic spread carries the process along lymphatics; hematogenous spread produces septicemia.'},
+  {f:'Synthesize the systemic manifestations of inflammation into a single overview.', b:'Pyrexia, negative nitrogen balance, raised ESR, acute-phase reactions with hepatic protein synthesis, anemia, and altered white cell counts (leukocytosis in bacterial infection or leucopenia in typhoid, viral, rickettsial, or protozoal infection).'},
+  {f:'Contrast the triggers of transient vasoconstriction versus persistent vasodilatation.', b:'Transient vasoconstriction is triggered by neurogenic or chemical stimuli acting briefly on arterioles; persistent vasodilatation follows as a sustained response mainly in arterioles, producing active hyperemia.'},
+  {f:'Give an example of coordinated action between a plasma-derived and a cell-derived mediator.', b:'C5a (plasma-derived, from complement) drives chemotaxis, while histamine (cell-derived, from mast cells) drives vascular leakage — together coordinating the vascular and cellular arms of inflammation.'},
+  {f:'Integrate the entire leukocyte recruitment cascade with its molecular correlates at each step.', b:'Margination and pavementing as flow slows, rolling and firm adhesion via endothelial interactions, emigration and diapedesis via collagenase-mediated basement membrane traversal, then chemotaxis toward the injury site.'},
+  ]
+};
+let fcCurrentLevel = 'easy';
+const fcGrid = document.getElementById('fcGrid');
+const fcLevelNames = {easy:'Easy', medium:'Medium', hard:'Hard'};
+
+function renderFlashcards(level){
+  fcCurrentLevel = level;
+  const cards = flashcardsByLevel[level];
+  fcGrid.innerHTML = '';
+  document.getElementById('fcCount').textContent = cards.length + ' cards · Level: ' + fcLevelNames[level];
+  cards.forEach((c, i)=>{
+    const wrap = document.createElement('div'); wrap.className='fc';
+    wrap.innerHTML = `
+      <div class="fc-inner">
+        <div class="fc-face fc-front"><span class="fc-tag">${String(i+1).padStart(2,'0')}</span>${c.f}</div>
+        <div class="fc-face fc-back">${c.b}</div>
+      </div>`;
+    wrap.addEventListener('click', ()=> wrap.classList.toggle('flip'));
+    fcGrid.appendChild(wrap);
+  });
+}
+renderFlashcards('easy');
+document.getElementById('fcResetBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('.fc').forEach(c=>c.classList.remove('flip'));
+});
+document.getElementById('fcLevelBar').querySelectorAll('.chip').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.getElementById('fcLevelBar').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+    btn.classList.add('on');
+    renderFlashcards(btn.dataset.lvl);
+  });
+});
+
+/* ================= QUIZ BANK ================= */
+const quizByLevel = {
+  easy: [
+  {q:'Acute inflammation is defined as:', opts:['The local response of living tissue to injury','A permanent scar formation','A type of allergy only','A bacterial disease'], a:0},
+  {q:'Which of the following is NOT one of the five cardinal signs of inflammation?', opts:['Redness','Swelling','Cyanosis','Pain'], a:2},
+  {q:'Redness in inflammation is caused by:', opts:['Hyperaemia','Fibrosis','Necrosis','Leucopenia'], a:0},
+  {q:'Heat (warmth) at the site of inflammation is due to:', opts:['Hyperaemia','Thrombosis','Gangrene','Opsonization'], a:0},
+  {q:'Swelling in acute inflammation is caused by:', opts:['Vasoconstriction','Exudation','Leukocytosis','Chemotaxis'], a:1},
+  {q:'Pain in inflammation results from:', opts:['Nerve stimulation and chemical mediators','Fibrosis only','Bone destruction','Anemia'], a:0},
+  {q:'The fifth cardinal sign of inflammation is:', opts:['Cyanosis','Loss of function','Jaundice','Pallor'], a:1},
+  {q:'Acute inflammation usually lasts for:', opts:['A few days, may persist a few weeks','Many years','A lifetime','Only a few seconds'], a:0},
+  {q:'Subacute inflammation is best described as:', opts:['Purely acute','Purely chronic','Intermediate between acute and chronic','Unrelated to inflammation'], a:2},
+  {q:'Chronic inflammation may result from:', opts:['Failure to eliminate an acute irritant','Complete resolution of injury','Absence of any irritant','Rapid healing'], a:0},
+  {q:'Chronic inflammation is characterized by:', opts:['Simultaneous inflammation and repair','Only necrosis','Only vasoconstriction','Absence of cells'], a:0},
+  {q:'Which cells are recruited in chronic inflammation?', opts:['Macrophages and lymphocytes','Only red blood cells','Only platelets','Only fibroblasts'], a:0},
+  {q:'A beneficial effect of inflammation is:', opts:['Destroying or walling off the injurious agent','Causing permanent disability always','Preventing all healing','Spreading infection'], a:0},
+  {q:'Which is a beneficial effect of inflammation?', opts:['Memorizing the infection','Causing hypersensitivity','Causing fibrous bands','Causing gangrene'], a:0},
+  {q:'A harmful effect of inflammation is:', opts:['Hypersensitivity reaction to insect bites','Healing of tissue','Destruction of bacteria','Immune memory'], a:0},
+  {q:'Rheumatoid arthritis, atherosclerosis, and lung fibrosis are examples of diseases underlain by:', opts:['Inflammatory reactions','Viral infections only','Genetic mutations only','Nutritional deficiency'], a:0},
+  {q:'Fibrous bands from repair by fibrosis may cause:', opts:['Intestinal obstruction','Improved joint mobility','Increased blood flow','Better healing'], a:0},
+  {q:'Fractures and foreign bodies are examples of:', opts:['Mechanical physical agents','Chemical agents','Biological agents','Endogenous causes'], a:0},
+  {q:'Burns and freezing are examples of:', opts:['Thermal agents','Biological agents','Metabolic causes','Circulation disorders'], a:0},
+  {q:'Toxic gases, acids, and bases are examples of:', opts:['Chemical agents','Thermal agents','Biological agents','Enzyme activation'], a:0},
+  {q:'Bacteria, viruses, and parasites are:', opts:['Biological agents','Physical agents','Chemical agents','Metabolic products'], a:0},
+  {q:'Thrombosis, infarction, and hemorrhage are grouped under:', opts:['Circulation disorders (endogenous)','Exogenous physical causes','Exogenous chemical causes','Biological causes'], a:0},
+  {q:'Acute pancreatitis is an example of inflammation caused by:', opts:['Enzyme activation','Thermal injury','Biological infection','Mechanical trauma'], a:0},
+  {q:'Uric acid and urea deposits are examples of:', opts:['Metabolic product deposits','Physical agents','Biological agents','Thermal agents'], a:0},
+  {q:'How many main processes occur at the site of inflammation according to its pathogenesis?', opts:['Three','Five','One','Seven'], a:0},
+  {q:'The components of the inflammatory response are:', opts:['Vascular reaction and cellular reaction','Only cellular reaction','Only vascular reaction','Only chemical reaction'], a:0},
+  {q:'The goal of bringing leukocytes and plasma proteins to the site is to reach:', opts:['The site of infection or tissue damage','The bone marrow','The liver','The heart'], a:0},
+  {q:'The main features of acute inflammation include:', opts:['Hemodynamic changes, cellular events, resolution or progression','Only chronic scarring','Only bone repair','Only fever'], a:0},
+  {q:'Which is the first hemodynamic change in acute inflammation?', opts:['Transient vasoconstriction','Persistent vasodilatation','Fluid exudate formation','Increased permeability'], a:0},
+  {q:'The last of the four hemodynamic changes is:', opts:['Fluid exudate and formation of edema','Transient vasoconstriction','Persistent vasodilatation','Chemotaxis'], a:0},
+  {q:'The two cellular events of acute inflammation are:', opts:['Cellular exudate and phagocytosis','Vasoconstriction and vasodilation','Fibrosis and necrosis','Resolution and death'], a:0},
+  {q:'Transient vasoconstriction of arterioles occurs within:', opts:['Seconds','Days','Weeks','Months'], a:0},
+  {q:'Chemical stimuli causing transient vasoconstriction include:', opts:['Histamine and bradykinin','Collagenase and lactoferrin','IgG and C3b','CRP and SAA'], a:0},
+  {q:'Persistent vasodilatation and stasis become obvious:', opts:['Within half an hour of injury','After several weeks','Immediately at the moment of injury','Only after death'], a:0},
+  {q:'Active hyperemia refers to:', opts:['Increased blood volume in the microvascular bed','Decreased blood volume','Complete cessation of blood flow','Blood clotting'], a:0},
+  {q:'Stasis is best described as:', opts:['Dilated small vessels packed with red cells','Rapid blood flow','Complete vessel closure','Absence of red cells'], a:0},
+  {q:'Exudate is defined as:', opts:['Protein-rich fluid from increased vascular permeability','Low-protein fluid from pressure changes','Pus only','Blood clot'], a:0},
+  {q:'Transudate is characterized by:', opts:['Low protein content','High protein content','Presence of bacteria only','Presence of pus'], a:0},
+  {q:'The cellular phase of inflammation consists of:', opts:['Exudation of leucocytes and phagocytosis','Vasodilation and vasoconstriction','Fever and chills','Resolution and spread'], a:0},
+  {q:'The first step in leukocyte exudation is:', opts:['Margination and pavementing','Chemotaxis','Emigration and diapedesis','Rolling and adhesion'], a:0},
+  {q:'Margination refers to:', opts:['White cells moving to a peripheral position along the endothelium','White cells entering the bone marrow','Red cells clotting','Platelet aggregation'], a:0},
+  {q:'Pavementing refers to:', opts:['Neutrophils lining closely against the vessel wall','Neutrophils leaving the body','Red cells forming a clot','Bacteria multiplying'], a:0},
+  {q:'Rolling phase describes:', opts:['Neutrophils slowly rolling over the endothelial surface','Neutrophils entering tissue directly','Complete vessel blockage','Platelet plug formation'], a:0},
+  {q:'Adhesion phase describes:', opts:['A firmer bond between leucocytes and endothelium','Neutrophils leaving the vessel completely','Vasoconstriction','Fibrin deposition'], a:0},
+  {q:'Emigration and diapedesis describe:', opts:['Leukocytes crossing the vessel wall into tissue','Leukocytes returning to bone marrow','Red cell destruction','Platelet activation'], a:0},
+  {q:'Chemotaxis is:', opts:['Directed migration of leukocytes toward the injury site','Random cell movement','Cell division','Blood clotting'], a:0},
+  {q:'Phagocytosis is defined as:', opts:['Engulfment of solid particulate material by cells','Formation of new blood vessels','Production of antibodies only','Cell division'], a:0},
+  {q:'Polymorphonuclear neutrophils are also called:', opts:['Microphages','Macrophages','Lymphocytes','Fibroblasts'], a:0},
+  {q:'Circulating monocytes and fixed tissue phagocytes are called:', opts:['Macrophages','Microphages','Mast cells','Basophils'], a:0},
+  {q:'The three steps of phagocytosis are:', opts:['Recognition, engulfment, killing/degradation','Margination, rolling, adhesion','Vasoconstriction, vasodilation, stasis','Resolution, repair, death'], a:0},
+  {q:'Coating microorganisms with proteins to enhance phagocytosis is called:', opts:['Opsonization','Chemotaxis','Diapedesis','Margination'], a:0},
+  {q:'A major opsonin mentioned in the lecture is:', opts:['IgG antibody','Histamine','Collagenase','Lactoferrin'], a:0},
+  {q:'Engulfment during phagocytosis involves formation of:', opts:['Cytoplasmic pseudopods','Fibrin clots','Blood vessels','Bone matrix'], a:0},
+  {q:'The myeloperoxidase-dependent killing system produces:', opts:['HOCl (bleach)','Lactoferrin','Collagenase','Histamine'], a:0},
+  {q:'Oxygen-independent killing relies on:', opts:['Lysosome and lactoferrin','Myeloperoxidase and halide','Superoxide radicals','Complement C5a'], a:0},
+  {q:'Fever (pyrexia) during inflammation is mainly due to:', opts:['Prostaglandins','Lactoferrin','Fibrin','Collagenase'], a:0},
+  {q:'The erythrocyte sedimentation rate (ESR) measures:', opts:['The settling of red blood cells over one hour','White blood cell count','Bacterial count','Platelet count'], a:0},
+  {q:'A mild acute inflammation of mucous membranes with excessive mucus secretion, as in the common cold, is called:', opts:['Catarrhal inflammation','Suppurative inflammation','Gangrenous inflammation','Ulcerative inflammation'], a:0},
+  {q:'Large amounts of pus caused by pyogenic bacteria describe:', opts:['Suppurative (purulent) inflammation','Serous inflammation','Catarrhal inflammation','Fibrinous inflammation'], a:0},
+  {q:'Loss of continuity of the surface epithelium of skin or GIT mucosa describes:', opts:['An ulcer','An abscess','Empyema','A pseudomembrane'], a:0},
+  ],
+  medium: [
+  {q:'Redness and heat at an inflamed site share the same underlying mechanism, which is:', opts:['Hyperaemia from vasodilatation','Fibrin deposition','Leukocytosis','Complement activation'], a:0},
+  {q:'Pain during inflammation results from the combined effect of:', opts:['Nerve stimulation and chemical mediators','Fibrosis and scarring only','Bone remodeling','Red cell lysis'], a:0},
+  {q:'Subacute inflammation is best understood as:', opts:['A transitional state sharing features of both acute and chronic inflammation','Identical to acute inflammation','Identical to chronic inflammation','A form of resolution only'], a:0},
+  {q:'Which of the following can lead to chronic inflammation?', opts:['Failure to eliminate an acute irritant, autoimmunity, or a persistent low-intensity irritant','Complete resolution of an acute injury','Rapid neutrophil clearance','Effective antibiotic treatment'], a:0},
+  {q:'In chronic inflammation, macrophage and lymphocyte recruitment is coordinated by:', opts:['Cytokines and growth factors','Histamine alone','Complement C3a only','Collagenase alone'], a:0},
+  {q:'Fibrotic repair after inflammation is potentially harmful because it may:', opts:['Form disfiguring scars or fibrous bands limiting organ or joint function','Always fully restore original tissue architecture','Prevent any further disease','Eliminate the need for phagocytosis'], a:0},
+  {q:'Rheumatoid arthritis, atherosclerosis, and lung fibrosis illustrate that:', opts:['Chronic diseases can be driven by underlying inflammatory reactions','Inflammation only affects skin','These diseases have no relation to inflammation','Inflammation always resolves without disease'], a:0},
+  {q:'A fibrous band causing intestinal obstruction is an example of:', opts:['A harmful effect of fibrotic repair','A beneficial effect of phagocytosis','A normal digestive process','A vascular reaction only'], a:0},
+  {q:'Fractures and burns differ as causes of inflammation because:', opts:['Fractures are mechanical while burns are thermal exogenous agents','Both are biological agents','Both are endogenous causes','Fractures are chemical agents'], a:0},
+  {q:'Toxic gases and bacteria differ as causes of inflammation because:', opts:['Toxic gases are chemical agents while bacteria are biological agents','Both are mechanical agents','Both are endogenous','Toxic gases are biological agents'], a:0},
+  {q:'Thrombosis and infarction are classified as inflammatory causes because they:', opts:['Arise from disorders of the body own circulation (endogenous)','Are caused by external bacteria','Are exogenous physical agents','Never cause inflammation'], a:0},
+  {q:'Acute pancreatitis exemplifies inflammation from:', opts:['Activation of the body own enzymes','An external toxic gas','A viral infection','A mechanical fracture'], a:0},
+  {q:'Deposition of uric acid as a cause of inflammation is classified as:', opts:['An endogenous metabolic product cause','An exogenous physical cause','A biological cause','A thermal cause'], a:0},
+  {q:'Increased blood flow at the site of injury directly produces which cardinal signs?', opts:['Redness and warmth','Pain only','Loss of function only','Swelling only'], a:0},
+  {q:'Increased vascular permeability at the site of injury directly produces:', opts:['Swelling (edema)','Redness only','Fever only','Leukocytosis only'], a:0},
+  {q:'The purpose of leukocytic infiltration in pathogenesis is to:', opts:['Bring host defense cells to the site of injury','Cause vasoconstriction','Reduce blood flow permanently','Prevent phagocytosis'], a:0},
+  {q:'With severe injury, transient vasoconstriction of arterioles may last about:', opts:['5 minutes','5 seconds','5 hours','5 days'], a:0},
+  {q:'Persistent vasodilatation and stasis become obvious within approximately:', opts:['Half an hour of injury','Immediately, before vasoconstriction','A week of injury','A month of injury'], a:0},
+  {q:'Active hyperemia is termed active because it reflects:', opts:['An actively increased blood volume in the microvascular bed','Passive pooling of static blood','Complete vessel occlusion','Reduced arterial flow'], a:0},
+  {q:'Progressive vasodilatation leads to edema by:', opts:['Raising local hydrostatic pressure, causing transudation into the extracellular space','Decreasing hydrostatic pressure','Lowering vascular permeability','Increasing red cell production'], a:0},
+  {q:'The morphological picture of stasis (RBC-packed dilated vessels) results from:', opts:['Slowed circulation with protein-rich fluid loss concentrating red cells','Rapid blood flow increasing red cell dilution','Complete vessel rupture','Loss of white blood cells only'], a:0},
+  {q:'A transudate can result from which two Starling-force mechanisms?', opts:['Increased hydrostatic pressure or decreased colloid osmotic pressure','Increased vascular permeability only','Bacterial infection only','Complement activation only'], a:0},
+  {q:'Congestive heart failure classically causes a transudate by:', opts:['Increasing hydrostatic pressure via venous outflow obstruction','Increasing vascular permeability','Causing bacterial infection','Activating complement'], a:0},
+  {q:'Liver and kidney disease classically cause a transudate by:', opts:['Decreasing colloid osmotic pressure through reduced protein synthesis or increased protein loss','Increasing vascular permeability','Causing pyogenic infection','Increasing hydrostatic pressure only'], a:0},
+  {q:'Exudate has high protein content mainly because of:', opts:['Increased vascular permeability with widened interendothelial spaces','Decreased hydrostatic pressure','Reduced blood flow','Complete vessel occlusion'], a:0},
+  {q:'Protein leakage into tissue worsens swelling because it:', opts:['Raises interstitial osmotic pressure, drawing more water out of the blood','Lowers interstitial osmotic pressure','Reduces vascular permeability','Prevents further fluid loss'], a:0},
+  {q:'The correct sequence of leukocyte exudation is:', opts:['Margination and pavementing, then rolling and adhesion, then emigration and diapedesis, then chemotaxis','Chemotaxis, then margination, then rolling, then emigration','Emigration, then chemotaxis, then rolling, then margination','Rolling, then chemotaxis, then margination, then emigration'], a:0},
+  {q:'During margination, the peripheral plasma zone becomes narrower because:', opts:['Of loss of plasma by exudation','Of increased hydrostatic pressure only','Of complement activation','Of red cell lysis'], a:0},
+  {q:'Pavementing differs from margination in that pavementing specifically refers to:', opts:['Neutrophils lining closely against the vessel wall after redistribution','The initial fall of white cells from the central column','Leukocyte death','Bacterial destruction'], a:0},
+  {q:'Adhesion differs from rolling because adhesion involves:', opts:['A firmer, more stable bond between leukocyte and endothelium','A slow transient rolling motion only','Complete detachment from the vessel wall','Loss of pseudopod formation'], a:0},
+  {q:'Collagenase functions during emigration to:', opts:['Damage endothelial cell junctions, allowing basement membrane traversal','Kill engulfed bacteria','Produce fever','Activate complement'], a:0},
+  {q:'Which of the following cell types does NOT use the same emigration pathway as neutrophils?', opts:['Red blood cells','Lymphocytes','Monocytes','Eosinophils'], a:0},
+  {q:'During chemotaxis, leukocytes cross barriers that include:', opts:['Endothelium, basement membrane, perivascular myofibroblasts, and matrix','Only the endothelium','Only the basement membrane','Only bone matrix'], a:0},
+  {q:'Microphages differ from macrophages mainly in that microphages:', opts:['Appear early in the acute inflammatory response as PMNs','Are always fixed in tissue','Never phagocytose bacteria','Are derived from lymphocytes'], a:0},
+  {q:'Macrophages recognize microorganisms directly via:', opts:['Mannose receptors and scavenger receptors','Only IgG receptors','Only complement receptors','Histamine receptors'], a:0},
+  {q:'Opsonization enhances phagocytosis because opsonins:', opts:['Coat the microbe, marking it for more efficient recognition and engulfment','Kill the microbe directly','Cause vasodilation','Prevent chemotaxis'], a:0},
+  {q:'Pseudopod formation during engulfment depends on activation of:', opts:['Actin filaments beneath the cell membrane','Collagen fibers','Complement proteins','Fibrin strands'], a:0},
+  {q:'The myeloperoxidase-independent O2-dependent pathway kills microbes using:', opts:['Superoxide and hydroxyl radicals via glutathione peroxidase','HOCl production only','Lysosome and lactoferrin only','Histamine release'], a:0},
+  {q:'The end-product of the H2O2-myeloperoxidase-halide system is:', opts:['HOCl (bleach)','Lactoferrin','Collagenase','Nitric oxide'], a:0},
+  {q:'Oxygen-independent microbial killing relies on:', opts:['Lysosome and lactoferrin','Myeloperoxidase and halide','Glutathione peroxidase','Superoxide radicals'], a:0},
+  {q:'C3a and C5a differ functionally from C3b in that C3a and C5a mainly:', opts:['Increase vascular permeability (C5a also causing chemotaxis)','Promote opsonization only','Activate Factor XII directly','Cause fever'], a:0},
+  {q:'Activation of Factor XII (Hageman factor) recruits which four systems?', opts:['Kinin, clotting, fibrinolytic, and complement','Digestive, renal, hepatic, and immune','Nervous, endocrine, muscular, skeletal','Respiratory, urinary, lymphatic, integumentary'], a:0},
+  {q:'Compared with prostaglandins, histamine is distinguished by:', opts:['Being released from mast cells and basophils to cause vascular leakage, rather than vasodilation/pain/fever','Being produced by all leukocytes to cause fever','Causing opsonization only','Being a complement protein'], a:0},
+  {q:'Inflammatory cytokines differ from leukotrienes (LTB4) in that cytokines mainly:', opts:['Activate leukocytes, while LTB4 acts as a chemoattractant','Cause vasodilation while LTB4 causes fever','Are produced only by mast cells','Cause opsonization directly'], a:0},
+  {q:'A negative nitrogen balance during inflammation indicates:', opts:['Tissue wasting or destruction, since more nitrogen is excreted than taken in','Tissue growth and formation','Normal metabolic equilibrium','Complete resolution of inflammation'], a:0},
+  {q:'Which three proteins are named as acute-phase proteins synthesized by the liver?', opts:['CRP, SAA, and SAP','Histamine, prostaglandin, and LTB4','IgG, C3b, and lectins','Collagenase, lactoferrin, and myeloperoxidase'], a:0},
+  {q:'Leukocytosis in bacterial infection occurs mainly because:', opts:['IL-1 and TNF accelerate release of cells from the bone marrow reserve pool','Bone marrow activity decreases','Leukocytes are destroyed faster','Red cells increase in number'], a:0},
+  {q:'Leucopenia is classically associated with:', opts:['Typhoid fever and infections by viruses, Rickettsiae, and certain protozoa','Staphylococcal abscess','Diabetic foot gangrene','Gout'], a:0},
+  {q:'Catarrhal and serous inflammation differ mainly in that catarrhal inflammation involves:', opts:['Mucous membranes with excess mucus, while serous involves serous membranes with watery effusion','Only serous cavities','Pus formation only','Necrosis with foul odor'], a:0},
+  {q:'An abscess differs from empyema in that an abscess is:', opts:['A localized pus collection with a necrotic centre in tissue, while empyema is pus within a body cavity or hollow organ','Always found in the gall bladder','A collection of clear fluid only','A type of fibrinous exudate'], a:0},
+  ],
+  hard: [
+  {q:'Which statement best reconciles inflammation protective role with its capacity for harm?', opts:['The same vascular and cellular mechanisms that eliminate the injurious agent and remove necrosed tissue can also damage adjacent healthy tissue','Inflammation only ever protects and never damages tissue','Inflammation is harmful only, with no protective role','Protective and harmful effects use entirely unrelated mechanisms'], a:0},
+  {q:'Loss of function as a cardinal sign is best explained as resulting from:', opts:['A combination of pain, swelling, and underlying tissue damage','Bone fracture alone','Complement activation alone','Fever alone'], a:0},
+  {q:'Which best distinguishes subacute from both acute and chronic inflammation?', opts:['It lies between the two, sharing features of the rapid vascular response of acute and the persistence/repair of chronic inflammation','It is identical to acute inflammation in every respect','It never shows any inflammatory cells','It always resolves within seconds'], a:0},
+  {q:'The key process distinguishing chronic from acute inflammation at the tissue level is:', opts:['Simultaneous, ongoing inflammation and repair driven by macrophages, lymphocytes, cytokines and growth factors','Purely transient vasoconstriction','Exclusive neutrophil involvement','Absence of any cellular response'], a:0},
+  {q:'A persistent, low-intensity irritant sustaining ongoing inflammation and repair in vessel walls is implicated in the pathogenesis of:', opts:['Atherosclerosis','Common cold','Acute appendicitis','Simple bruising'], a:0},
+  {q:'Mechanical, thermal, chemical, and biological exogenous causes are best distinguished by:', opts:['Their distinct mechanisms of tissue injury (physical disruption, temperature extremes, corrosive or toxic damage, and living-organism invasion respectively)','All causing identical cellular injury','All being endogenous in origin','None causing acute inflammation'], a:0},
+  {q:'Acute pancreatitis (enzyme activation) differs mechanistically from thrombosis or infarction (circulation disorders) in that the former involves:', opts:['Autodigestion by the body own prematurely activated enzymes rather than disrupted blood supply','An external biological agent','A mechanical fracture','A thermal burn'], a:0},
+  {q:'Mapping pathogenesis to hemodynamic changes, increased vascular permeability corresponds most directly to which hemodynamic step?', opts:['Increased permeability of vessel walls with fluid exudate and edema formation','Transient vasoconstriction only','Chemotaxis','Phagocytosis'], a:0},
+  {q:'Which correctly orders the hemodynamic sequence with approximate timing?', opts:['Transient vasoconstriction (seconds), then vasodilatation and stasis (about 30 minutes), then increased permeability, then edema formation','Edema formation, then vasoconstriction, then vasodilatation, then increased permeability','Increased permeability, then edema, then vasoconstriction, then vasodilatation','Vasodilatation, then vasoconstriction, then edema, then increased permeability'], a:0},
+  {q:'With severe injury, transient vasoconstriction may persist for about 5 minutes, whereas mild injury reestablishes flow in:', opts:['3 to 5 seconds','3 to 5 minutes','3 to 5 hours','3 to 5 days'], a:0},
+  {q:'Stasis is morphologically distinct from simple vasodilation because stasis specifically involves:', opts:['Slowed circulation with plasma loss concentrating red cells in dilated vessels','Free-flowing blood with normal plasma protein levels','Complete absence of red cells','Rapid, unimpeded blood flow'], a:0},
+  {q:'The full mechanistic chain from increased permeability to edema involves, in order:', opts:['Protein-rich fluid leakage, then raised interstitial osmotic pressure, then more water drawn from blood, then edema','Edema first, then protein leakage, then osmotic changes','Decreased osmotic pressure causing water to leave tissue','No relationship between permeability and edema'], a:0},
+  {q:'Which combination correctly differentiates exudate from transudate?', opts:['Exudate: high protein, permeability-driven, may contain cells; Transudate: low protein, pressure-driven, few cells','Exudate: low protein; Transudate: high protein','Both have identical protein content','Exudate always contains pus; transudate always contains bacteria'], a:0},
+  {q:'A patient with congestive heart failure and one with liver disease can both develop a transudate because:', opts:['CHF raises hydrostatic pressure while liver disease lowers colloid osmotic pressure, different mechanisms with the same low-protein transudate result','Both conditions increase vascular permeability identically','Both conditions cause pyogenic infection','Neither condition affects Starling forces'], a:0},
+  {q:'The correct full sequence of leukocyte recruitment, including the molecular mediator for basement membrane crossing, is:', opts:['Margination and pavementing, then rolling and adhesion, then emigration and diapedesis via collagenase, then chemotaxis','Chemotaxis via collagenase, then margination, then rolling, then emigration','Emigration, then chemotaxis, then margination, then adhesion via collagenase','Rolling, then chemotaxis, then emigration via collagenase, then margination'], a:0},
+  {q:'PMNs are described as the first line of body defense mainly because:', opts:['They arrive early in the acute inflammatory response, before monocytes and macrophages','They are the only phagocytic cell type','They never leave the bloodstream','They cause chronic inflammation exclusively'], a:0},
+  {q:'Collagenase specific role in leukocyte emigration is to:', opts:['Induce damage between endothelial cells so leukocytes can traverse the basement membrane','Kill phagocytosed bacteria','Produce fever mediators','Activate the complement cascade'], a:0},
+  {q:'Integrating the phagocytosis pathway, opsonins act at which step?', opts:['Recognition and attachment, by coating the microbe to enhance phagocyte binding','Killing and degradation, by directly producing HOCl','Engulfment, by forming the actin cytoskeleton','Chemotaxis, by attracting leukocytes from the bloodstream'], a:0},
+  {q:'The chemical distinction between the two O2-dependent killing pathways is that:', opts:['Myeloperoxidase-dependent produces HOCl via the H2O2-halide system, while myeloperoxidase-independent uses superoxide and hydroxyl radicals via glutathione peroxidase','Both pathways produce identical end products','Only the independent pathway requires oxygen','Only the dependent pathway is oxygen-independent'], a:0},
+  {q:'The complement fragments C3a, C5a, and C3b differ functionally in that:', opts:['C3a and C5a increase vascular permeability (C5a also drives chemotaxis) while C3b and C3bi promote opsonization','All three exclusively cause fever','C3b causes chemotaxis while C5a causes opsonization','None of them affect the inflammatory response'], a:0},
+  {q:'Activation of Factor XII (Hageman factor) is significant because it simultaneously links:', opts:['The kinin, clotting, fibrinolytic, and complement systems','Only the digestive and renal systems','Only the nervous system','Only the respiratory system'], a:0},
+  {q:'Comparing chemical mediators, which pairing of origin and function is correct?', opts:['Nitric oxide, macrophages, leukocyte activation','Histamine, all leukocytes, pain and fever','Prostaglandins, mast cells only, vascular leakage','Leukotrienes, macrophages only, opsonization'], a:0},
+  {q:'Fever during inflammation is mechanistically linked to:', opts:['Prostaglandins acting as pyrogenic chemical mediators','Lactoferrin acting on the hypothalamus','Collagenase crossing the blood-brain barrier','Fibrin deposition in the brain'], a:0},
+  {q:'A negative nitrogen balance during severe inflammation reflects:', opts:['A catabolic state where tissue and protein breakdown exceed intake','An anabolic state of tissue growth','Complete metabolic equilibrium','Increased protein synthesis exceeding breakdown'], a:0},
+  {q:'According to the source, an elevated ESR during inflammation reflects:', opts:['An increased rate of red blood cell settling in blood over one hour, indicating inflammation and other diseases','A decreased white blood cell count specifically','A direct measure of bacterial load','A measure of fibrin clot strength only'], a:0},
+  {q:'Which combination of acute-phase reactions and their described purpose is correct per the source?', opts:['Rigors (shivering) and chills (search for warmth) accompany hepatic synthesis of CRP, SAA, and SAP','Rigors indicate resolution of inflammation','Chills indicate complete recovery','Malaise indicates absence of inflammation'], a:0},
+  {q:'Contrasting leukocytosis and leucopenia mechanistically, leukocytosis in bacterial infection is driven by:', opts:['IL-1 and TNF accelerated release from the bone marrow reserve pool, unlike the pattern in typhoid, viral, rickettsial, or protozoal infection','Bone marrow shutdown, the same as in typhoid fever','Loss of white cells into inflamed tissue only','Decreased IL-1 and TNF activity'], a:0},
+  {q:'Differentiating morphological types, which pairing of type and clinical example is correct?', opts:['Pseudomembranous, diphtheria of the larynx','Catarrhal, gastric peptic ulcer','Gangrenous, common cold','Fibrinous, boil or furuncle'], a:0},
+  {q:'An abscess and a pseudomembrane differ in that an abscess:', opts:['Is a localized pus collection surrounded by a pyogenic membrane, whereas a pseudomembrane is a surface layer of exudate, fibrin, neutrophils, red cells, bacteria and debris over necrotic mucosa','Is always found in the larynx','Contains no neutrophils','Is identical to a transudate'], a:0},
+  {q:'The two possible outcomes of fibrinous inflammation described in the source are:', opts:['Resolution via fibrinolysis and macrophage removal, or organization into fibrous adhesion if removal is incomplete','Only complete resolution, with no other outcome possible','Only progression to gangrene','Only pseudomembrane formation'], a:0},
+  {q:'Both diphtheria and pseudomembranous (C. difficile) colitis share which pathological feature despite different triggers?', opts:['Formation of a pseudomembrane from extensive mucosal necrosis, exudate, fibrin, neutrophils, red cells, bacteria and debris','Both are caused by the same organism','Both are examples of serous inflammation','Both lack any inflammatory component'], a:0},
+  {q:'Gangrenous inflammation discoloration and foul odor are explained by:', opts:['Putrefactive digestion of necrotic tissue by saprophytic bacteria','Excess mucus secretion','Fibrin deposition without bacteria','Complement-mediated opsonization'], a:0},
+  {q:'An ulcer, as defined in the source, is best described as:', opts:['A local defect (loss of continuity) of surface epithelium of skin or GIT mucosa, associated with induced necrosis of superficial layers','A localized collection of pus with a pyogenic membrane','A collection of pus in a hollow organ','A fibrin-coated serous membrane'], a:0},
+  {q:'Which sequence correctly represents the escalating spectrum of possible outcomes of acute inflammation?', opts:['Resolution, then healing by repair or regeneration, then progression to chronic inflammation, then spread, then death','Death, then spread, then resolution, then repair, then chronic inflammation','Chronic inflammation, then resolution, then death, then spread, then repair','Spread, then death, then resolution, then repair, then chronic inflammation'], a:0},
+  {q:'The three routes of inflammatory spread and their correct clinical correlates are:', opts:['Direct leads to cellulitis; lymphatic leads to lymphatic spread; blood vessels lead to septicemia','Direct leads to septicemia; lymphatic leads to cellulitis; blood vessels lead to abscess','Direct leads to gangrene; lymphatic leads to ulcer; blood vessels lead to empyema','Direct leads to resolution; lymphatic leads to death; blood vessels lead to repair'], a:0},
+  {q:'Synthesizing systemic manifestations, which grouping is accurate per the source?', opts:['Pyrexia, negative nitrogen balance, raised ESR, acute-phase reactions with hepatic protein synthesis, anemia, and leukocytosis or leucopenia','Only fever, with no other systemic changes','Only leukocytosis, with no fever or ESR changes','Only anemia, unrelated to any other systemic sign'], a:0},
+  {q:'Transient vasoconstriction and persistent vasodilatation differ in their trigger and vessel involvement in that:', opts:['Vasoconstriction is a brief neurogenic or chemical arteriolar response, while vasodilatation is a sustained response mainly in arterioles producing active hyperemia','Both are identical in timing and mechanism','Vasodilatation always precedes vasoconstriction','Neither involves arterioles'], a:0},
+  {q:'An example of coordinated plasma- and cell-derived mediator action described in the source is:', opts:['C5a driving chemotaxis working alongside histamine driving vascular leakage to coordinate cellular and vascular arms of inflammation','Collagenase working alongside CRP to cause fever','Lactoferrin working alongside IgG to cause vasoconstriction','Nitric oxide working alongside uric acid to cause opsonization'], a:0},
+  {q:'Integrating the entire leukocyte cascade, which is the correct enzymatic or molecular correlate at the emigration step?', opts:['Collagenase-mediated damage allowing basement membrane traversal','Myeloperoxidase-mediated HOCl production','Complement C3b-mediated opsonization','Histamine-mediated vascular leakage'], a:0},
+  {q:'Which statement best integrates the definition, cardinal signs, and pathogenesis of acute inflammation?', opts:['Acute inflammation is a defense reaction to injury producing redness and heat from increased blood flow, swelling from increased permeability, and cellular defense from leukocytic infiltration, while also being capable of causing tissue damage','Acute inflammation only causes pain with no vascular changes','Acute inflammation is unrelated to blood flow or permeability changes','Acute inflammation always resolves without any cellular involvement'], a:0},
+  ]
+};
+let quizCurrentLevel = 'easy';
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+let score = 0;
+
+function renderQuiz(level){
+  if(level) quizCurrentLevel = level;
+  const quizData = quizByLevel[quizCurrentLevel];
+  score = 0;
+  document.getElementById('quizScore').textContent = '0';
+  document.getElementById('quizTotal').textContent = quizData.length;
+  const list = document.getElementById('quizList');
+  list.innerHTML = '';
+  quizData.forEach((q, qi)=>{
+    const optionObjs = q.opts.map((text, i)=>({text, correct: i===q.a}));
+    const shuffled = shuffleArray(optionObjs);
+
+    const card = document.createElement('div'); card.className='qcard';
+    const head = document.createElement('div'); head.className='qhead';
+    head.innerHTML = `<span class="qnum">Q${qi+1}</span><span class="qtext">${q.q}</span>`;
+    card.appendChild(head);
+    const optWrap = document.createElement('div'); optWrap.className='opts';
+
+    shuffled.forEach(opt=>{
+      const b = document.createElement('button');
+      b.className='opt'; b.textContent = opt.text;
+      b.addEventListener('click', ()=>{
+        const buttons = optWrap.querySelectorAll('.opt');
+        buttons.forEach(x=>x.disabled=true);
+        buttons.forEach(x=>{
+          if(x.textContent === q.opts[q.a]) x.classList.add('correct');
+        });
+        if(opt.correct){
+          score++;
+        } else {
+          b.classList.add('wrong');
+        }
+        document.getElementById('quizScore').textContent = score;
+      });
+      optWrap.appendChild(b);
+    });
+    card.appendChild(optWrap);
+    list.appendChild(card);
+  });
+}
+renderQuiz('easy');
+document.getElementById('quizReshuffle').addEventListener('click', ()=> renderQuiz());
+document.getElementById('quizLevelBar').querySelectorAll('.chip').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.getElementById('quizLevelBar').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+    btn.classList.add('on');
+    renderQuiz(btn.dataset.lvl);
+  });
+});
+</script>
+</body>
+</html>
